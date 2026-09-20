@@ -1,0 +1,172 @@
+% =========================================================================
+% Ángel Sarrión - Curriculum Vitae
+% Design: LaTeX Technical Precision + Synthwave Palette (Neon Pink & Cyan)
+% =========================================================================
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1.4cm, top=1.4cm, bottom=1.4cm]{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tikz}
+
+% --- Synthwave Color Palette ---
+\definecolor{SynthPink}{HTML}{FF2A85}
+\definecolor{SynthBlue}{HTML}{008CB4} % High contrast print cyan-blue
+\definecolor{DarkVoid}{HTML}{0A0B16}
+\definecolor{SlateGray}{HTML}{475569}
+\definecolor{RulePink}{HTML}{FF2A85}
+
+% --- Hyperref Setup ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=SynthBlue,
+    urlcolor=SynthBlue,
+    pdftitle={Ángel Sarrión - Senior Business Analyst Lead y Especialista en TI},
+    pdfauthor={Ángel Sarrión}
+}
+
+% --- Section Styling (LaTeX + Synthwave) ---
+\titleformat{\section}
+  {\large\bfseries\scshape\color{SynthPink}}
+  {}
+  {0em}
+  {}[{\color{SynthBlue}\titlerule[1.2pt]}]
+
+\titlespacing*{\section}{0pt}{12pt}{8pt}
+
+\begin{document}
+\pagestyle{empty}
+
+% --- Header ---
+\begin{center}
+    {\Huge\textbf{\scshape Ángel Sarrión}} \\[4pt]
+    {\large\color{SynthBlue}\textbf{Senior Business Analyst Lead y Especialista en TI}} \\[6pt]
+    {\small
+        📍 Albacete / Madrid, España \textbullet{} Experiencia en Milton Keynes, Reino Unido \ $\cdot$ \ 
+        ✉ \href{mailto:angelsarrion@gmail.com}{angelsarrion@gmail.com} \ $\cdot$ \ 
+        🔗 \href{https://www.linkedin.com/in/angelsarrion}{linkedin.com/in/angelsarrion} \ $\cdot$ \ 
+        💻 \href{https://github.com/angelsarrion}{github.com/angelsarrion}
+    }
+\end{center}
+
+\vspace{-4pt}
+
+% --- Section: Summary ---
+\section{Perfil Ejecutivo}
+\noindent Especialista en tecnología apasionado y de contrastada trayectoria en el sector TI, con más de 18 años impulsando soluciones de software complejas y reingeniería de procesos de negocio. Experto en arquitecturas empresariales, motores de admisión y decisión de riesgo crediticio, y en traducir objetivos estratégicos de negocio en implementaciones escalables y resilientes. Habilidad probada para gestionar entornos de alta exigencia, tender puentes entre directivos y equipos técnicos multidisciplinares, y garantizar la excelencia operativa continua.
+
+% --- Section: Top Projects ---
+\section{Iniciativas Estratégicas Destacadas (TOP 3)}
+\noindent\textbf{\large Servicio de Decisión de Riesgo (RDS)} \hfill {\color{SynthBlue}\textbf{2021 -- 2025}} \\
+{\color{SynthPink}\textbf{TOP 1 $\cdot$ Líder Técnico y Especialista Senior de TI $\cdot$ Santander UK}} \\
+\vspace{2pt}
+Motor de decisión de riesgo crediticio en tiempo real de misión crítica para Santander UK. Rediseño y mantenimiento de los sistemas centrales que evalúan financiación a particulares y empresas con estricto cumplimiento normativo y latencia ultra baja.
+\begin{itemize}[leftmargin=1.5em, itemsep=1.5pt, topsep=2pt]
+    \item Lideró el rediseño arquitectónico integral de los sistemas de comprobación de Riesgo de Crédito en Santander UK, elevando drásticamente la precisión, capacidad de procesamiento y auditabilidad.
+    \item Coordinó releases continuas BAU (Business-As-Usual), mitigación de incidencias y despliegues automatizados bajo estricta gobernanza Agile y Change Authority.
+    \item Especialista de guardia (On-Call) garantizando disponibilidad ininterrumpida 24/7 en operaciones críticas de banca y resolución ágil de incidencias de severidad alta.
+    \item Dirección y soporte a múltiples flujos de trabajo simultáneos, definiendo contratos de API, modelado de datos e interdependencias sistémicas entre equipos técnicos.
+\end{itemize}
+\noindent\textit{\footnotesize \textbf{Tech Stack:} Credit Risk Engines, REST APIs, Agile / Scrum, Jira \& Confluence, DevOps, Change Authority, Dynatrace, Data Modeling}
+\vspace{10pt}
+\noindent\textbf{\large Proyecto Risk PCSM} \hfill {\color{SynthBlue}\textbf{2016 -- 2017}} \\
+{\color{SynthPink}\textbf{TOP 2 $\cdot$ Analista Líder de Sistemas $\cdot$ Santander UK}} \\
+\vspace{2pt}
+Reestructuración y rediseño completo de todos los sistemas de Riesgo de Crédito Minorista en Santander UK para cumplir con nuevas regulaciones bancarias y automatizar la suscripción de riesgo.
+\begin{itemize}[leftmargin=1.5em, itemsep=1.5pt, topsep=2pt]
+    \item Dirigió el análisis técnico y entrega de los flujos de evaluación automatizada de riesgo para Tarjetas de Crédito, Cuentas Personales y Financiación Empresarial.
+    \item Modernizó los flujos tradicionales de admisión hacia arquitecturas modulares por servicios, reduciendo el tiempo de concesión de días a segundos.
+    \item Facilitó la total alineación entre directores de políticas de riesgo, arquitectos de soluciones y squads de desarrollo mediante especificaciones vivas en Confluence y Jira.
+    \item Diseñó sólidas estrategias de pruebas de regresión e impulsó herramientas de automatización de QA con DevOps para garantizar pases a producción sin fisuras.
+\end{itemize}
+\noindent\textit{\footnotesize \textbf{Tech Stack:} Retail Credit Risk, Admission Systems, Agile Delivery, Jira \& Confluence, Solution Architecture, Automated Underwriting}
+\vspace{10pt}
+\noindent\textbf{\large Proyecto Spectrum} \hfill {\color{SynthBlue}\textbf{2018}} \\
+{\color{SynthPink}\textbf{TOP 3 $\cdot$ Analista Líder de Negocio y Sistemas $\cdot$ Santander UK}} \\
+\vspace{2pt}
+Iniciativa estratégica insignia del programa de transformación Santander DIGITAL: incorporación automatizada de principio a fin y concesión de tarjetas de crédito para clientes de banca de empresas.
+\begin{itemize}[leftmargin=1.5em, itemsep=1.5pt, topsep=2pt]
+    \item Definió las especificaciones funcionales y de arquitectura de bajo nivel que unieron los canales digitales de clientes con los motores de scoring de back-office.
+    \item Pionero en la integración con IBM API Gateway (DataPower/Connect) para una orquestación de APIs empresariales segura y de alto rendimiento.
+    \item Diseñó pipelines de ingesta en tiempo casi real (Near Real-Time) hacia el data lake corporativo para analítica avanzada y reporting regulatorio.
+    \item Implantó flujos continuos CI/CD en entornos PaaS de nueva generación, fijando el estándar de calidad, seguridad y rapidez de entrega en el banco.
+\end{itemize}
+\noindent\textit{\footnotesize \textbf{Tech Stack:} IBM API Gateway, Near Real-Time Data Lake, CI/CD, PaaS, DevOps, Business Banking, Onboarding Automation}
+\vspace{10pt}
+
+
+% --- Section: Professional Experience ---
+\section{Trayectoria Profesional}
+\noindent\textbf{\large Santander Digital Services} \hfill {\color{SynthBlue}\textbf{Jun 2024 -- Actualidad}} \\
+{\color{SynthPink}\textbf{Senior Business Analyst Lead}} $\cdot$ {\color{SlateGray}Boadilla del Monte, Madrid / Albacete, España}
+\begin{itemize}[leftmargin=1.5em, itemsep=1.5pt, topsep=2pt]
+    \item Definición y refinamiento de historias de usuario en Jira con criterios de aceptación nítidos, alineando el delivery técnico con los objetivos de negocio y cumplimiento.
+    \item Coordinación y seguimiento de la actividad de desarrollo en sprints, resolviendo dudas técnicas y facilitando el avance continuo de los equipos.
+    \item Soporte integral a los equipos de QA, determinando el alcance de pruebas, condiciones límite y validación de resultados esperados.
+    \item Interlocución directa con stakeholders de negocio para capturar, formalizar y priorizar requerimientos estratégicos.
+    \item Diseño de soluciones técnicas escalables y prácticas que materializan las necesidades de negocio en planes de implementación efectivos.
+    \item Gestión de dependencias transversales entre múltiples equipos de TI y coordinación con Change Authorities para mitigar riesgos de integración.
+    \item Participación activa en el rol de DevOps, supervisando despliegues de software y actividades de pase a producción.
+\end{itemize}
+\\\noindent\textit{\footnotesize \textbf{Stack:} Jira \& Confluence, Agile / Scrum, DevOps, Change Authority, Technical Architecture, Enterprise Integration, QA Automation}
+\vspace{10pt}
+\noindent\textbf{\large Santander UK} \hfill {\color{SynthBlue}\textbf{Ene 2021 -- May 2025}} \\
+{\color{SynthPink}\textbf{Especialista Senior en TI (Líder Técnico RDS)}} $\cdot$ {\color{SlateGray}Milton Keynes, Reino Unido}
+\begin{itemize}[leftmargin=1.5em, itemsep=1.5pt, topsep=2pt]
+    \item Liderazgo técnico y rediseño integral de los sistemas implicados en la evaluación de Riesgo de Crédito (Risk Decision Service - RDS) en Santander UK.
+    \item Gestión y coordinación de releases de BAU siguiendo metodologías Agile, garantizando mejoras continuas, estabilidad y solución ágil de incidencias.
+    \item Soporte especializado de guardia (On-Call) garantizando disponibilidad continua 24/7 para sistemas críticos de scoring.
+    \item Liderazgo y asesoramiento a diversos equipos técnicos de RDS, resolviendo dudas de interacción entre sistemas y funciones de scoring complejas.
+\end{itemize}
+\\\noindent\textit{\footnotesize \textbf{Stack:} Risk Decision Service (RDS), Agile Releases, Dynatrace, Data Modeling, Incident Support (On-Call), Credit Risk Systems}
+\vspace{10pt}
+\noindent\textbf{\large Santander UK} \hfill {\color{SynthBlue}\textbf{Abr 2012 -- Dic 2020}} \\
+{\color{SynthPink}\textbf{Analista de Sistemas / Analista de Negocio y Sistemas}} $\cdot$ {\color{SlateGray}Milton Keynes, Reino Unido}
+\begin{itemize}[leftmargin=1.5em, itemsep=1.5pt, topsep=2pt]
+    \item Miembro clave de la unidad Credit Risk IT, especializándose en sistemas de Admisión y promocionando a Lead Analyst para programas estratégicos del banco.
+    \item Lideró iniciativas capitales del programa Santander DIGITAL, destacando Project Spectrum (2018) para onboarding digital de tarjetas a empresas.
+    \item Dirigió el análisis de sistemas del Risk PCSM Project (2016-2017), rediseñando el riesgo minorista en tarjetas, cuentas y banca comercial.
+    \item Colaboración estrecha con Arquitectos de Soluciones en diseños de alto nivel y elaboración de especificaciones técnicas de bajo nivel y modelado de datos.
+    \item Documentación funcional y técnica exhaustiva en Confluence y gestión de requerimientos en Jira para garantizar la transferencia de conocimiento.
+\end{itemize}
+\\\noindent\textit{\footnotesize \textbf{Stack:} Credit Risk IT, Project Spectrum, PCSM Project, IBM API Gateway, PaaS, Near Real-Time Data Lake, Solution Architecture, Confluence \& Jira}
+\vspace{10pt}
+\noindent\textbf{\large Isban UK} \hfill {\color{SynthBlue}\textbf{Abr 2011 -- Abr 2012}} \\
+{\color{SynthPink}\textbf{Analista Funcional}} $\cdot$ {\color{SlateGray}Milton Keynes, Reino Unido}
+\begin{itemize}[leftmargin=1.5em, itemsep=1.5pt, topsep=2pt]
+    \item Análisis funcional e integración para el Proyecto Armadillo: plataforma de comercialización de Seguros de Vida de Santander en alianza con AVIVA UK.
+    \item Responsable de la implantación, pruebas y soporte sobre múltiples tecnologías heterogéneas: J2EE, .NET, Biztalk y sistemas centrales COBOL.
+    \item Gestión de soporte operativo BAU y resolución de incidencias para asegurar la continuidad de negocio en sucursales y canales de venta.
+\end{itemize}
+\\\noindent\textit{\footnotesize \textbf{Stack:} J2EE, .NET, Biztalk, COBOL, Insurance Platforms, BAU Support}
+\vspace{10pt}
+\noindent\textbf{\large Vector ITC Group} \hfill {\color{SynthBlue}\textbf{Sep 2007 -- Feb 2011}} \\
+{\color{SynthPink}\textbf{Desarrollador de Software}} $\cdot$ {\color{SlateGray}Albacete, España}
+\begin{itemize}[leftmargin=1.5em, itemsep=1.5pt, topsep=2pt]
+    \item Desarrollador Java EE responsable del análisis, diseño y programación de módulos para la banca minorista de Crèdit Andorrà y aplicaciones web corporativas de Santander.
+    \item Desarrollo de servicios backend para el proyecto Red.es, gestionando el hosting y administración de dominios .es para el Gobierno de España.
+\end{itemize}
+\\\noindent\textit{\footnotesize \textbf{Stack:} Java EE, Retail Banking, Web Applications, Red.es Domain Systems, SQL}
+\vspace{10pt}
+
+
+% --- Section: Skills ---
+\section{Matriz de Competencias}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt, topsep=2pt]
+\item \textbf{Motores de Riesgo de Crédito y Banca:} Risk Decision Service (RDS), Retail Credit Risk (PCSM), Admission \& Underwriting, Scoring Integration, Credit Cards \& Commercial Lending, Regulatory Compliance\item \textbf{Arquitectura e Integración:} Solution Architecture, IBM API Gateway (DataPower / Connect), RESTful API Design \& Contracts, Near Real-Time (NRT) Data Lake, PaaS \& Cloud Runtimes, Enterprise System Integration\item \textbf{Sistemas y Observabilidad:} Dynatrace APM, IT Infrastructure \& Systems Management, Incident Management \& On-Call (24/7), Data Modeling \& SQL, Java EE / .NET / Biztalk / COBOL\item \textbf{Metodologías y Liderazgo:} Senior Technical Leadership, Agile \& Scrum Delivery, Jira \& Confluence Governance, Change Authorities \& Risk Mitigation, DevOps \& CI/CD Pipelines, Stakeholder Alignment
+\end{itemize}
+
+% --- Section: Education & Languages ---
+\section{Formación Académica e Idiomas}
+\noindent\textbf{IES Leonardo da Vinci} \hfill {\textbf{2002 -- 2005}} \\
+Técnico Superior en Desarrollo de Aplicaciones Informáticas (DAI) -- \textit{Análisis, Arquitectura de Software y Desarrollo de Aplicaciones}\\
+
+\vspace{6pt}
+\noindent \textbf{Español:} Nativo / Bilingüe, \textbf{Inglés:} Competencia Profesional Completa
+
+\end{document}

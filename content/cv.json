@@ -1,0 +1,487 @@
+{
+  "_comment": "Single source of truth for the website and LaTeX CV. Edit this file, then run the build tool to regenerate all web, text, and LaTeX artifacts.",
+  "meta": {
+    "siteUrl": "https://angelsarrion.github.io/ASCV/",
+    "repoUrl": "https://github.com/angelsarrion/ASCV",
+    "defaultLocale": "en",
+    "locales": [
+      "en",
+      "es"
+    ],
+    "themeColor": {
+      "light": "#fbfbfd",
+      "dark": "#090a12",
+      "accentPink": "#ff2a85",
+      "accentBlue": "#00f0ff"
+    }
+  },
+  "profile": {
+    "name": "Ángel Sarrión",
+    "initials": "ÁS",
+    "role": {
+      "en": "Senior Business Analyst Lead & IT Specialist",
+      "es": "Senior Business Analyst Lead y Especialista en TI"
+    },
+    "positioning": {
+      "en": "18+ years leading Credit Risk, Digital Banking Architecture, and Mission-Critical IT Systems across Santander UK & Europe.",
+      "es": "Más de 18 años liderando Sistemas de Riesgo de Crédito, Arquitectura de Banca Digital y Soluciones TI de misión crítica en Santander UK y Europa."
+    },
+    "title": {
+      "en": "Ángel Sarrión - Senior Business Analyst Lead & IT Specialist",
+      "es": "Ángel Sarrión - Senior Business Analyst Lead y Especialista en TI"
+    },
+    "email": "angelsarrion@gmail.com",
+    "location": {
+      "en": "Albacete / Madrid, Spain · Milton Keynes, UK Experience",
+      "es": "Albacete / Madrid, España · Experiencia en Milton Keynes, Reino Unido"
+    },
+    "addressLocality": "Albacete",
+    "addressCountry": "Spain",
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/angelsarrion",
+      "github": "https://github.com/angelsarrion",
+      "repo": "https://github.com/angelsarrion/ASCV"
+    },
+    "metaDescription": {
+      "en": "Personal CV & Portfolio of Ángel Sarrión: Senior Business Analyst Lead & IT Specialist with deep expertise in Credit Risk, Architecture, Agile, and Banking Systems at Santander.",
+      "es": "CV y Portafolio personal de Ángel Sarrión: Senior Business Analyst Lead y Especialista en TI con sólida experiencia en Riesgo de Crédito, Arquitectura y Sistemas Bancarios en Santander."
+    }
+  },
+  "summary": {
+    "en": "Proven, passionate, and experienced technology specialist in the IT sector with over 18 years driving complex software solutions and business process re-engineering. Skilled in enterprise architectures, credit risk admission and decisioning engines, and translating high-level business goals into scalable, resilient implementations. Politically astute with the proven ability to navigate high-stakes environments, liaise between executive stakeholders and multidisciplinary engineering teams, and maintain zero-downtime operational excellence.",
+    "es": "Especialista en tecnología apasionado y de contrastada trayectoria en el sector TI, con más de 18 años impulsando soluciones de software complejas y reingeniería de procesos de negocio. Experto en arquitecturas empresariales, motores de admisión y decisión de riesgo crediticio, y en traducir objetivos estratégicos de negocio en implementaciones escalables y resilientes. Habilidad probada para gestionar entornos de alta exigencia, tender puentes entre directivos y equipos técnicos multidisciplinares, y garantizar la excelencia operativa continua."
+  },
+  "topProjects": [
+    {
+      "id": "rds",
+      "featured": true,
+      "tag": "TOP 1",
+      "title": {
+        "en": "Risk Decision Service (RDS)",
+        "es": "Servicio de Decisión de Riesgo (RDS)"
+      },
+      "period": "2021 – 2025",
+      "role": {
+        "en": "Tech Lead & Senior IT Specialist",
+        "es": "Líder Técnico y Especialista Senior de TI"
+      },
+      "company": "Santander UK",
+      "overview": {
+        "en": "Mission-critical real-time credit decisioning engine for Santander UK. Redesigned and maintained the core systems powering all retail and commercial lending evaluations with strict regulatory compliance and ultra-low latency.",
+        "es": "Motor de decisión de riesgo crediticio en tiempo real de misión crítica para Santander UK. Rediseño y mantenimiento de los sistemas centrales que evalúan financiación a particulares y empresas con estricto cumplimiento normativo y latencia ultra baja."
+      },
+      "impact": {
+        "en": [
+          "Led the comprehensive end-to-end redesign of systems involved in Credit Risk checks across Santander UK, dramatically increasing assessment accuracy, throughput, and auditability.",
+          "Coordinated BAU (Business-As-Usual) sprint releases, incident mitigation, and automated deployments adhering to strict Agile and Change Authority governance.",
+          "Served as On-Call Technical Specialist ensuring 24/7 unhindered mission-critical operations and rapid resolution of high-severity production incidents.",
+          "Guided multiple concurrent workstreams, defining API contracts, data models, and system interdependencies for cross-functional engineering squads."
+        ],
+        "es": [
+          "Lideró el rediseño arquitectónico integral de los sistemas de comprobación de Riesgo de Crédito en Santander UK, elevando drásticamente la precisión, capacidad de procesamiento y auditabilidad.",
+          "Coordinó releases continuas BAU (Business-As-Usual), mitigación de incidencias y despliegues automatizados bajo estricta gobernanza Agile y Change Authority.",
+          "Especialista de guardia (On-Call) garantizando disponibilidad ininterrumpida 24/7 en operaciones críticas de banca y resolución ágil de incidencias de severidad alta.",
+          "Dirección y soporte a múltiples flujos de trabajo simultáneos, definiendo contratos de API, modelado de datos e interdependencias sistémicas entre equipos técnicos."
+        ]
+      },
+      "stack": [
+        "Credit Risk Engines",
+        "REST APIs",
+        "Agile / Scrum",
+        "Jira & Confluence",
+        "DevOps",
+        "Change Authority",
+        "Dynatrace",
+        "Data Modeling"
+      ]
+    },
+    {
+      "id": "pcsm",
+      "featured": true,
+      "tag": "TOP 2",
+      "title": {
+        "en": "Risk PCSM Project",
+        "es": "Proyecto Risk PCSM"
+      },
+      "period": "2016 – 2017",
+      "role": {
+        "en": "Lead System Analyst",
+        "es": "Analista Líder de Sistemas"
+      },
+      "company": "Santander UK",
+      "overview": {
+        "en": "Complete overhaul of the entire Retail Credit Risk landscape at Santander UK to meet modern banking directives, multi-product eligibility, and automated underwriting.",
+        "es": "Reestructuración y rediseño completo de todos los sistemas de Riesgo de Crédito Minorista en Santander UK para cumplir con nuevas regulaciones bancarias y automatizar la suscripción de riesgo."
+      },
+      "impact": {
+        "en": [
+          "Directed technical analysis and delivery of automated Credit Risk assessment workstreams covering Credit Cards, Personal Accounts, and Commercial Banking.",
+          "Modernized legacy admission workflows into modular service architectures, drastically shortening loan approval turnaround times from days to seconds.",
+          "Facilitated alignment between Risk policy executives, Solution Architects, and developer squads through rigorous Confluence blueprints and Jira roadmaps.",
+          "Created robust regression test strategies and supported DevOps test automation tooling to ensure flawless production cutovers."
+        ],
+        "es": [
+          "Dirigió el análisis técnico y entrega de los flujos de evaluación automatizada de riesgo para Tarjetas de Crédito, Cuentas Personales y Financiación Empresarial.",
+          "Modernizó los flujos tradicionales de admisión hacia arquitecturas modulares por servicios, reduciendo el tiempo de concesión de días a segundos.",
+          "Facilitó la total alineación entre directores de políticas de riesgo, arquitectos de soluciones y squads de desarrollo mediante especificaciones vivas en Confluence y Jira.",
+          "Diseñó sólidas estrategias de pruebas de regresión e impulsó herramientas de automatización de QA con DevOps para garantizar pases a producción sin fisuras."
+        ]
+      },
+      "stack": [
+        "Retail Credit Risk",
+        "Admission Systems",
+        "Agile Delivery",
+        "Jira & Confluence",
+        "Solution Architecture",
+        "Automated Underwriting"
+      ]
+    },
+    {
+      "id": "spectrum",
+      "featured": true,
+      "tag": "TOP 3",
+      "title": {
+        "en": "Project Spectrum",
+        "es": "Proyecto Spectrum"
+      },
+      "period": "2018",
+      "role": {
+        "en": "Lead Business & System Analyst",
+        "es": "Analista Líder de Negocio y Sistemas"
+      },
+      "company": "Santander UK",
+      "overview": {
+        "en": "Flagship strategic initiative within the Santander DIGITAL transformation programme: end-to-end automated onboarding and credit card issuance for commercial & business banking customers.",
+        "es": "Iniciativa estratégica insignia del programa de transformación Santander DIGITAL: incorporación automatizada de principio a fin y concesión de tarjetas de crédito para clientes de banca de empresas."
+      },
+      "impact": {
+        "en": [
+          "Architected functional and low-level specifications connecting client-facing digital journeys directly to back-office scoring pipelines.",
+          "Pioneered integration with IBM API Gateway (DataPower/Connect) for secure, high-volume enterprise API orchestration.",
+          "Engineered Near Real-Time (NRT) data lake ingestion pipelines feeding analytical models and regulatory reporting.",
+          "Embedded CI/CD pipelines in PaaS cloud-native runtime environments, establishing a benchmark for security, quality, and velocity across Santander UK."
+        ],
+        "es": [
+          "Definió las especificaciones funcionales y de arquitectura de bajo nivel que unieron los canales digitales de clientes con los motores de scoring de back-office.",
+          "Pionero en la integración con IBM API Gateway (DataPower/Connect) para una orquestación de APIs empresariales segura y de alto rendimiento.",
+          "Diseñó pipelines de ingesta en tiempo casi real (Near Real-Time) hacia el data lake corporativo para analítica avanzada y reporting regulatorio.",
+          "Implantó flujos continuos CI/CD en entornos PaaS de nueva generación, fijando el estándar de calidad, seguridad y rapidez de entrega en el banco."
+        ]
+      },
+      "stack": [
+        "IBM API Gateway",
+        "Near Real-Time Data Lake",
+        "CI/CD",
+        "PaaS",
+        "DevOps",
+        "Business Banking",
+        "Onboarding Automation"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Santander Digital Services",
+      "position": {
+        "en": "Senior Business Analyst Lead",
+        "es": "Senior Business Analyst Lead"
+      },
+      "start": {
+        "en": "Jun 2024",
+        "es": "Jun 2024"
+      },
+      "end": {
+        "en": "Present",
+        "es": "Actualidad"
+      },
+      "location": {
+        "en": "Boadilla del Monte, Madrid / Albacete, Spain",
+        "es": "Boadilla del Monte, Madrid / Albacete, España"
+      },
+      "bullets": {
+        "en": [
+          "Define and refine Jira user stories with precise acceptance criteria, ensuring technical delivery aligns rigorously with business objectives and compliance.",
+          "Coordinate and track end-to-end development sprint activities, unblocking dependencies and technical queries across diverse engineering squads.",
+          "Empower QA teams by defining testing scopes, boundary conditions, and expected outcomes for automated and exploratory validation.",
+          "Partner with executive business stakeholders to elicit, formalize, and prioritize strategic initiatives.",
+          "Architect actionable, scalable technical designs translating complex business requirements into enterprise-grade software roadmaps.",
+          "Manage cross-platform system dependencies, engaging directly with Change Authorities to evaluate system integration risks, impacts, and controls.",
+          "Act in a DevOps and release governance capacity, participating directly in software releases and deployment verification."
+        ],
+        "es": [
+          "Definición y refinamiento de historias de usuario en Jira con criterios de aceptación nítidos, alineando el delivery técnico con los objetivos de negocio y cumplimiento.",
+          "Coordinación y seguimiento de la actividad de desarrollo en sprints, resolviendo dudas técnicas y facilitando el avance continuo de los equipos.",
+          "Soporte integral a los equipos de QA, determinando el alcance de pruebas, condiciones límite y validación de resultados esperados.",
+          "Interlocución directa con stakeholders de negocio para capturar, formalizar y priorizar requerimientos estratégicos.",
+          "Diseño de soluciones técnicas escalables y prácticas que materializan las necesidades de negocio en planes de implementación efectivos.",
+          "Gestión de dependencias transversales entre múltiples equipos de TI y coordinación con Change Authorities para mitigar riesgos de integración.",
+          "Participación activa en el rol de DevOps, supervisando despliegues de software y actividades de pase a producción."
+        ]
+      },
+      "stack": [
+        "Jira & Confluence",
+        "Agile / Scrum",
+        "DevOps",
+        "Change Authority",
+        "Technical Architecture",
+        "Enterprise Integration",
+        "QA Automation"
+      ]
+    },
+    {
+      "company": "Santander UK",
+      "position": {
+        "en": "Senior Information Technology Specialist (RDS Tech Lead)",
+        "es": "Especialista Senior en TI (Líder Técnico RDS)"
+      },
+      "start": {
+        "en": "Jan 2021",
+        "es": "Ene 2021"
+      },
+      "end": {
+        "en": "May 2025",
+        "es": "May 2025"
+      },
+      "location": {
+        "en": "Milton Keynes, United Kingdom",
+        "es": "Milton Keynes, Reino Unido"
+      },
+      "bullets": {
+        "en": [
+          "Led the end-to-end redesign and technical leadership of the Risk Decision Service (RDS) involved in real-time Credit Risk evaluations at Santander UK.",
+          "Managed and coordinated BAU sprint releases following Agile methodologies, guaranteeing continuous improvements, performance tuning, and timely defect resolution.",
+          "Provided expert 24/7 on-call specialist support for RDS, ensuring mission-critical reliability and rapid incident management.",
+          "Guided multidisciplinary engineering workstreams, answering architectural queries and defining data contracts for scoring and decisioning engines."
+        ],
+        "es": [
+          "Liderazgo técnico y rediseño integral de los sistemas implicados en la evaluación de Riesgo de Crédito (Risk Decision Service - RDS) en Santander UK.",
+          "Gestión y coordinación de releases de BAU siguiendo metodologías Agile, garantizando mejoras continuas, estabilidad y solución ágil de incidencias.",
+          "Soporte especializado de guardia (On-Call) garantizando disponibilidad continua 24/7 para sistemas críticos de scoring.",
+          "Liderazgo y asesoramiento a diversos equipos técnicos de RDS, resolviendo dudas de interacción entre sistemas y funciones de scoring complejas."
+        ]
+      },
+      "stack": [
+        "Risk Decision Service (RDS)",
+        "Agile Releases",
+        "Dynatrace",
+        "Data Modeling",
+        "Incident Support (On-Call)",
+        "Credit Risk Systems"
+      ]
+    },
+    {
+      "company": "Santander UK",
+      "position": {
+        "en": "System Analyst / System Business Analyst",
+        "es": "Analista de Sistemas / Analista de Negocio y Sistemas"
+      },
+      "start": {
+        "en": "Apr 2012",
+        "es": "Abr 2012"
+      },
+      "end": {
+        "en": "Dec 2020",
+        "es": "Dic 2020"
+      },
+      "location": {
+        "en": "Milton Keynes, United Kingdom",
+        "es": "Milton Keynes, Reino Unido"
+      },
+      "bullets": {
+        "en": [
+          "Key member of the Credit Risk IT Business Unit, mastering Admission systems and evolving into Lead Analyst for major bank-wide strategic transformations.",
+          "Spearheaded key workstreams in the Santander DIGITAL programme, including Project Spectrum (2018) for business banking credit card onboarding.",
+          "Led systems analysis for the Risk PCSM Project (2016-2017), overhauling Retail Credit Risk across Credit Cards, Personal Accounts, and Commercial Banking.",
+          "Collaborated closely with Solution Architects on high-level designs and produced low-level technical architectures, assisting DevOps with data modeling and code troubleshooting.",
+          "Authored functional and technical documentation in Confluence and managed requirements in Jira, driving team-wide knowledge sharing."
+        ],
+        "es": [
+          "Miembro clave de la unidad Credit Risk IT, especializándose en sistemas de Admisión y promocionando a Lead Analyst para programas estratégicos del banco.",
+          "Lideró iniciativas capitales del programa Santander DIGITAL, destacando Project Spectrum (2018) para onboarding digital de tarjetas a empresas.",
+          "Dirigió el análisis de sistemas del Risk PCSM Project (2016-2017), rediseñando el riesgo minorista en tarjetas, cuentas y banca comercial.",
+          "Colaboración estrecha con Arquitectos de Soluciones en diseños de alto nivel y elaboración de especificaciones técnicas de bajo nivel y modelado de datos.",
+          "Documentación funcional y técnica exhaustiva en Confluence y gestión de requerimientos en Jira para garantizar la transferencia de conocimiento."
+        ]
+      },
+      "stack": [
+        "Credit Risk IT",
+        "Project Spectrum",
+        "PCSM Project",
+        "IBM API Gateway",
+        "PaaS",
+        "Near Real-Time Data Lake",
+        "Solution Architecture",
+        "Confluence & Jira"
+      ]
+    },
+    {
+      "company": "Isban UK",
+      "position": {
+        "en": "Functional Analyst",
+        "es": "Analista Funcional"
+      },
+      "start": {
+        "en": "Apr 2011",
+        "es": "Abr 2011"
+      },
+      "end": {
+        "en": "Apr 2012",
+        "es": "Abr 2012"
+      },
+      "location": {
+        "en": "Milton Keynes, United Kingdom",
+        "es": "Milton Keynes, Reino Unido"
+      },
+      "bullets": {
+        "en": [
+          "Delivered functional analysis and system integration for the Armadillo Project: Santander Life Insurance Sales platform in strategic partnership with AVIVA UK.",
+          "Responsible for implementation, testing, and 2nd/3rd line support across diverse technologies: J2EE, .NET, Biztalk, and COBOL backend services.",
+          "Handled BAU operational support and incident resolution, ensuring stability for front-office insurance sales."
+        ],
+        "es": [
+          "Análisis funcional e integración para el Proyecto Armadillo: plataforma de comercialización de Seguros de Vida de Santander en alianza con AVIVA UK.",
+          "Responsable de la implantación, pruebas y soporte sobre múltiples tecnologías heterogéneas: J2EE, .NET, Biztalk y sistemas centrales COBOL.",
+          "Gestión de soporte operativo BAU y resolución de incidencias para asegurar la continuidad de negocio en sucursales y canales de venta."
+        ]
+      },
+      "stack": [
+        "J2EE",
+        ".NET",
+        "Biztalk",
+        "COBOL",
+        "Insurance Platforms",
+        "BAU Support"
+      ]
+    },
+    {
+      "company": "Vector ITC Group",
+      "position": {
+        "en": "Software Developer",
+        "es": "Desarrollador de Software"
+      },
+      "start": {
+        "en": "Sep 2007",
+        "es": "Sep 2007"
+      },
+      "end": {
+        "en": "Feb 2011",
+        "es": "Feb 2011"
+      },
+      "location": {
+        "en": "Albacete, Spain",
+        "es": "Albacete, España"
+      },
+      "bullets": {
+        "en": [
+          "Java EE Developer responsible for analysis, design, and implementation of retail banking components for Crèdit Andorrà and Santander corporate web apps.",
+          "Engineered backend modules for Red.es, managing registration, hosting, and governance infrastructure for Spanish Government .es top-level domains."
+        ],
+        "es": [
+          "Desarrollador Java EE responsable del análisis, diseño y programación de módulos para la banca minorista de Crèdit Andorrà y aplicaciones web corporativas de Santander.",
+          "Desarrollo de servicios backend para el proyecto Red.es, gestionando el hosting y administración de dominios .es para el Gobierno de España."
+        ]
+      },
+      "stack": [
+        "Java EE",
+        "Retail Banking",
+        "Web Applications",
+        "Red.es Domain Systems",
+        "SQL"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": {
+        "en": "Credit Risk & Banking Engines",
+        "es": "Motores de Riesgo de Crédito y Banca"
+      },
+      "items": [
+        "Risk Decision Service (RDS)",
+        "Retail Credit Risk (PCSM)",
+        "Admission & Underwriting",
+        "Scoring Integration",
+        "Credit Cards & Commercial Lending",
+        "Regulatory Compliance"
+      ]
+    },
+    {
+      "category": {
+        "en": "Architecture & Integration",
+        "es": "Arquitectura e Integración"
+      },
+      "items": [
+        "Solution Architecture",
+        "IBM API Gateway (DataPower / Connect)",
+        "RESTful API Design & Contracts",
+        "Near Real-Time (NRT) Data Lake",
+        "PaaS & Cloud Runtimes",
+        "Enterprise System Integration"
+      ]
+    },
+    {
+      "category": {
+        "en": "Systems & Observability",
+        "es": "Sistemas y Observabilidad"
+      },
+      "items": [
+        "Dynatrace APM",
+        "IT Infrastructure & Systems Management",
+        "Incident Management & On-Call (24/7)",
+        "Data Modeling & SQL",
+        "Java EE / .NET / Biztalk / COBOL"
+      ]
+    },
+    {
+      "category": {
+        "en": "Methodologies & Leadership",
+        "es": "Metodologías y Liderazgo"
+      },
+      "items": [
+        "Senior Technical Leadership",
+        "Agile & Scrum Delivery",
+        "Jira & Confluence Governance",
+        "Change Authorities & Risk Mitigation",
+        "DevOps & CI/CD Pipelines",
+        "Stakeholder Alignment"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "IES Leonardo da Vinci",
+      "degree": {
+        "en": "Higher Vocational Degree in Computer Applications Development (DAI)",
+        "es": "Técnico Superior en Desarrollo de Aplicaciones Informáticas (DAI)"
+      },
+      "field": {
+        "en": "Application Analysis, Architecture & Software Engineering",
+        "es": "Análisis, Arquitectura de Software y Desarrollo de Aplicaciones"
+      },
+      "period": "2002 – 2005",
+      "location": "Albacete, Spain"
+    }
+  ],
+  "languages": [
+    {
+      "language": {
+        "en": "Spanish",
+        "es": "Español"
+      },
+      "proficiency": {
+        "en": "Native / Bilingual",
+        "es": "Nativo / Bilingüe"
+      }
+    },
+    {
+      "language": {
+        "en": "English",
+        "es": "Inglés"
+      },
+      "proficiency": {
+        "en": "Full Professional Proficiency",
+        "es": "Competencia Profesional Completa"
+      }
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+ÁNGEL SARRIÓN - SENIOR BUSINESS ANALYST LEAD Y ESPECIALISTA EN TI
+======================================================================
+Email:    angelsarrion@gmail.com
+Location: Albacete / Madrid, España · Experiencia en Milton Keynes, Reino Unido
+LinkedIn: https://www.linkedin.com/in/angelsarrion
+GitHub:   https://github.com/angelsarrion
+
+======================================================================
+EXECUTIVE SUMMARY / EXTRACTO
+======================================================================
+Especialista en tecnología apasionado y de contrastada trayectoria en el sector TI, con más de 18 años impulsando soluciones de software complejas y reingeniería de procesos de negocio. Experto en arquitecturas empresariales, motores de admisión y decisión de riesgo crediticio, y en traducir objetivos estratégicos de negocio en implementaciones escalables y resilientes. Habilidad probada para gestionar entornos de alta exigencia, tender puentes entre directivos y equipos técnicos multidisciplinares, y garantizar la excelencia operativa continua.
+
+======================================================================
+TOP STRATEGIC INITIATIVES (FEATURED)
+======================================================================
+
+* Servicio de Decisión de Riesgo (RDS) (TOP 1) | 2021 – 2025 | Santander UK
+  Role: Líder Técnico y Especialista Senior de TI
+  Overview: Motor de decisión de riesgo crediticio en tiempo real de misión crítica para Santander UK. Rediseño y mantenimiento de los sistemas centrales que evalúan financiación a particulares y empresas con estricto cumplimiento normativo y latencia ultra baja.
+  Key Impact:
+    - Lideró el rediseño arquitectónico integral de los sistemas de comprobación de Riesgo de Crédito en Santander UK, elevando drásticamente la precisión, capacidad de procesamiento y auditabilidad.
+    - Coordinó releases continuas BAU (Business-As-Usual), mitigación de incidencias y despliegues automatizados bajo estricta gobernanza Agile y Change Authority.
+    - Especialista de guardia (On-Call) garantizando disponibilidad ininterrumpida 24/7 en operaciones críticas de banca y resolución ágil de incidencias de severidad alta.
+    - Dirección y soporte a múltiples flujos de trabajo simultáneos, definiendo contratos de API, modelado de datos e interdependencias sistémicas entre equipos técnicos.
+  Stack: Credit Risk Engines, REST APIs, Agile / Scrum, Jira & Confluence, DevOps, Change Authority, Dynatrace, Data Modeling
+
+* Proyecto Risk PCSM (TOP 2) | 2016 – 2017 | Santander UK
+  Role: Analista Líder de Sistemas
+  Overview: Reestructuración y rediseño completo de todos los sistemas de Riesgo de Crédito Minorista en Santander UK para cumplir con nuevas regulaciones bancarias y automatizar la suscripción de riesgo.
+  Key Impact:
+    - Dirigió el análisis técnico y entrega de los flujos de evaluación automatizada de riesgo para Tarjetas de Crédito, Cuentas Personales y Financiación Empresarial.
+    - Modernizó los flujos tradicionales de admisión hacia arquitecturas modulares por servicios, reduciendo el tiempo de concesión de días a segundos.
+    - Facilitó la total alineación entre directores de políticas de riesgo, arquitectos de soluciones y squads de desarrollo mediante especificaciones vivas en Confluence y Jira.
+    - Diseñó sólidas estrategias de pruebas de regresión e impulsó herramientas de automatización de QA con DevOps para garantizar pases a producción sin fisuras.
+  Stack: Retail Credit Risk, Admission Systems, Agile Delivery, Jira & Confluence, Solution Architecture, Automated Underwriting
+
+* Proyecto Spectrum (TOP 3) | 2018 | Santander UK
+  Role: Analista Líder de Negocio y Sistemas
+  Overview: Iniciativa estratégica insignia del programa de transformación Santander DIGITAL: incorporación automatizada de principio a fin y concesión de tarjetas de crédito para clientes de banca de empresas.
+  Key Impact:
+    - Definió las especificaciones funcionales y de arquitectura de bajo nivel que unieron los canales digitales de clientes con los motores de scoring de back-office.
+    - Pionero en la integración con IBM API Gateway (DataPower/Connect) para una orquestación de APIs empresariales segura y de alto rendimiento.
+    - Diseñó pipelines de ingesta en tiempo casi real (Near Real-Time) hacia el data lake corporativo para analítica avanzada y reporting regulatorio.
+    - Implantó flujos continuos CI/CD en entornos PaaS de nueva generación, fijando el estándar de calidad, seguridad y rapidez de entrega en el banco.
+  Stack: IBM API Gateway, Near Real-Time Data Lake, CI/CD, PaaS, DevOps, Business Banking, Onboarding Automation
+
+======================================================================
+PROFESSIONAL EXPERIENCE
+======================================================================
+
+* Santander Digital Services | Jun 2024 - Actualidad
+  Position: Senior Business Analyst Lead (Boadilla del Monte, Madrid / Albacete, España)
+    - Definición y refinamiento de historias de usuario en Jira con criterios de aceptación nítidos, alineando el delivery técnico con los objetivos de negocio y cumplimiento.
+    - Coordinación y seguimiento de la actividad de desarrollo en sprints, resolviendo dudas técnicas y facilitando el avance continuo de los equipos.
+    - Soporte integral a los equipos de QA, determinando el alcance de pruebas, condiciones límite y validación de resultados esperados.
+    - Interlocución directa con stakeholders de negocio para capturar, formalizar y priorizar requerimientos estratégicos.
+    - Diseño de soluciones técnicas escalables y prácticas que materializan las necesidades de negocio en planes de implementación efectivos.
+    - Gestión de dependencias transversales entre múltiples equipos de TI y coordinación con Change Authorities para mitigar riesgos de integración.
+    - Participación activa en el rol de DevOps, supervisando despliegues de software y actividades de pase a producción.
+  Stack: Jira & Confluence, Agile / Scrum, DevOps, Change Authority, Technical Architecture, Enterprise Integration, QA Automation
+
+* Santander UK | Ene 2021 - May 2025
+  Position: Especialista Senior en TI (Líder Técnico RDS) (Milton Keynes, Reino Unido)
+    - Liderazgo técnico y rediseño integral de los sistemas implicados en la evaluación de Riesgo de Crédito (Risk Decision Service - RDS) en Santander UK.
+    - Gestión y coordinación de releases de BAU siguiendo metodologías Agile, garantizando mejoras continuas, estabilidad y solución ágil de incidencias.
+    - Soporte especializado de guardia (On-Call) garantizando disponibilidad continua 24/7 para sistemas críticos de scoring.
+    - Liderazgo y asesoramiento a diversos equipos técnicos de RDS, resolviendo dudas de interacción entre sistemas y funciones de scoring complejas.
+  Stack: Risk Decision Service (RDS), Agile Releases, Dynatrace, Data Modeling, Incident Support (On-Call), Credit Risk Systems
+
+* Santander UK | Abr 2012 - Dic 2020
+  Position: Analista de Sistemas / Analista de Negocio y Sistemas (Milton Keynes, Reino Unido)
+    - Miembro clave de la unidad Credit Risk IT, especializándose en sistemas de Admisión y promocionando a Lead Analyst para programas estratégicos del banco.
+    - Lideró iniciativas capitales del programa Santander DIGITAL, destacando Project Spectrum (2018) para onboarding digital de tarjetas a empresas.
+    - Dirigió el análisis de sistemas del Risk PCSM Project (2016-2017), rediseñando el riesgo minorista en tarjetas, cuentas y banca comercial.
+    - Colaboración estrecha con Arquitectos de Soluciones en diseños de alto nivel y elaboración de especificaciones técnicas de bajo nivel y modelado de datos.
+    - Documentación funcional y técnica exhaustiva en Confluence y gestión de requerimientos en Jira para garantizar la transferencia de conocimiento.
+  Stack: Credit Risk IT, Project Spectrum, PCSM Project, IBM API Gateway, PaaS, Near Real-Time Data Lake, Solution Architecture, Confluence & Jira
+
+* Isban UK | Abr 2011 - Abr 2012
+  Position: Analista Funcional (Milton Keynes, Reino Unido)
+    - Análisis funcional e integración para el Proyecto Armadillo: plataforma de comercialización de Seguros de Vida de Santander en alianza con AVIVA UK.
+    - Responsable de la implantación, pruebas y soporte sobre múltiples tecnologías heterogéneas: J2EE, .NET, Biztalk y sistemas centrales COBOL.
+    - Gestión de soporte operativo BAU y resolución de incidencias para asegurar la continuidad de negocio en sucursales y canales de venta.
+  Stack: J2EE, .NET, Biztalk, COBOL, Insurance Platforms, BAU Support
+
+* Vector ITC Group | Sep 2007 - Feb 2011
+  Position: Desarrollador de Software (Albacete, España)
+    - Desarrollador Java EE responsable del análisis, diseño y programación de módulos para la banca minorista de Crèdit Andorrà y aplicaciones web corporativas de Santander.
+    - Desarrollo de servicios backend para el proyecto Red.es, gestionando el hosting y administración de dominios .es para el Gobierno de España.
+  Stack: Java EE, Retail Banking, Web Applications, Red.es Domain Systems, SQL
+
+======================================================================
+TECHNICAL MATRIX & SKILLS
+======================================================================
+* Motores de Riesgo de Crédito y Banca: Risk Decision Service (RDS), Retail Credit Risk (PCSM), Admission & Underwriting, Scoring Integration, Credit Cards & Commercial Lending, Regulatory Compliance
+* Arquitectura e Integración: Solution Architecture, IBM API Gateway (DataPower / Connect), RESTful API Design & Contracts, Near Real-Time (NRT) Data Lake, PaaS & Cloud Runtimes, Enterprise System Integration
+* Sistemas y Observabilidad: Dynatrace APM, IT Infrastructure & Systems Management, Incident Management & On-Call (24/7), Data Modeling & SQL, Java EE / .NET / Biztalk / COBOL
+* Metodologías y Liderazgo: Senior Technical Leadership, Agile & Scrum Delivery, Jira & Confluence Governance, Change Authorities & Risk Mitigation, DevOps & CI/CD Pipelines, Stakeholder Alignment
+
+======================================================================
+EDUCATION & LANGUAGES
+======================================================================
+* IES Leonardo da Vinci: Técnico Superior en Desarrollo de Aplicaciones Informáticas (DAI) (2002 – 2005) - Albacete, Spain
+* Español: Nativo / Bilingüe
+* Inglés: Competencia Profesional Completa

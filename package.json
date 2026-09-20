@@ -1,0 +1,13 @@
+{
+  "name": "ascv",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ángel Sarrión - Personal Space & Synthwave LaTeX CV for GitHub Pages",
+  "scripts": {
+    "build": "python3 tools/build.py && python3 tools/generate_pdf.py",
+    "pdf": "python3 tools/generate_pdf.py",
+    "serve": "python3 -m http.server 8080 --directory docs"
+  },
+  "author": "Ángel Sarrión <angelsarrion@gmail.com>",
+  "license": "MIT"
+}
