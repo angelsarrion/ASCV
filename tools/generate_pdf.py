@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """
 tools/generate_pdf.py
-High-precision Vector PDF and Preview Image Generator using PyCairo for Ángel Sarrión's CV.
+Executive Vector PDF Generator using PyCairo for Ángel Sarrión's CV.
 Produces:
   - docs/AngelSarrion-CV.pdf (English)
   - docs/AngelSarrion-CV-es.pdf (Spanish)
   - docs/assets/cv-preview.png (English preview thumbnail)
   - docs/assets/cv-preview-es.png (Spanish preview thumbnail)
-Icons are drawn as native scalable vector shapes — 0% tofu, 100% vector precision.
+
+Design Guidelines:
+  - Colors: Deep Executive Navy Blue (#0F3460) for titles/headers, Crisp Charcoal/Black (#111827) for body text. No pink or neon!
+  - Layout: Spacious leading (1.5x font size), generous section gaps, zero line overlaps or margin overflows.
+  - Native Vector Icons: Envelope, Location Pin, LinkedIn, GitHub, Globe (0% tofu squares).
 """
 
 import os
@@ -22,15 +26,15 @@ ASSETS_DIR = os.path.join(DOCS_DIR, "assets")
 
 PAGE_WIDTH = 595.28   # A4 Width in points
 PAGE_HEIGHT = 841.89  # A4 Height in points
-MARGIN_X = 40.0
-MARGIN_Y = 36.0
+MARGIN_X = 42.0
+MARGIN_Y = 40.0
 CONTENT_WIDTH = PAGE_WIDTH - 2 * MARGIN_X
 
-# Color definitions
-C_PINK = (0.88, 0.05, 0.48)      # Neon Pink / Magenta
-C_BLUE = (0.01, 0.48, 0.72)      # Deep Cyan / Synth Blue
-C_DARK = (0.08, 0.10, 0.16)      # Slate Dark Text
-C_MUTED = (0.35, 0.40, 0.48)     # Muted Gray
+# Executive Color Palette (No Pink / No Neon)
+C_NAVY = (0.06, 0.20, 0.38)     # Deep Executive Navy Blue (#0F3460)
+C_DARK = (0.07, 0.09, 0.15)     # Primary Body Text (#111827)
+C_MUTED = (0.28, 0.33, 0.41)    # Secondary / Stack Gray (#475569)
+C_LINE = (0.12, 0.25, 0.48)     # Divider Rule Line (#1E3A8A)
 
 def load_data():
     with open(CV_JSON_PATH, "r", encoding="utf-8") as f:
@@ -59,10 +63,10 @@ def wrap_text(ctx, text, max_width):
     return lines
 
 # =========================================================================
-# Native Cairo Vector Icon Drawers (No Unicode Font Dependencies)
+# Vector Icon Drawers in Dark Navy (Zero Unicode Tofu)
 # =========================================================================
 
-def draw_email_icon(ctx, x, y, size=8.5, color=C_DARK):
+def draw_email_icon(ctx, x, y, size=9.0, color=C_NAVY):
     ctx.save()
     ctx.set_source_rgb(*color)
     w = size * 1.3
@@ -79,7 +83,7 @@ def draw_email_icon(ctx, x, y, size=8.5, color=C_DARK):
     ctx.restore()
     return w
 
-def draw_pin_icon(ctx, x, y, size=8.5, color=C_DARK):
+def draw_pin_icon(ctx, x, y, size=9.0, color=C_NAVY):
     ctx.save()
     ctx.set_source_rgb(*color)
     r = size * 0.36
@@ -98,14 +102,13 @@ def draw_pin_icon(ctx, x, y, size=8.5, color=C_DARK):
     ctx.restore()
     return size * 0.8
 
-def draw_linkedin_icon(ctx, x, y, size=8.5, color=C_DARK):
+def draw_linkedin_icon(ctx, x, y, size=9.0, color=C_NAVY):
     ctx.save()
     ctx.set_source_rgb(*color)
     w = size
     h = size
     ctx.rectangle(x, y - h, w, h)
     ctx.fill()
-    # White 'in'
     ctx.set_source_rgb(1, 1, 1)
     ctx.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
     ctx.set_font_size(size * 0.7)
@@ -114,7 +117,7 @@ def draw_linkedin_icon(ctx, x, y, size=8.5, color=C_DARK):
     ctx.restore()
     return w
 
-def draw_github_icon(ctx, x, y, size=8.5, color=C_DARK):
+def draw_github_icon(ctx, x, y, size=9.0, color=C_NAVY):
     ctx.save()
     ctx.set_source_rgb(*color)
     r = size * 0.45
@@ -131,14 +134,14 @@ def draw_github_icon(ctx, x, y, size=8.5, color=C_DARK):
     ctx.line_to(cx + r * 0.45, cy - r * 1.05)
     ctx.line_to(cx + r * 0.15, cy - r * 0.75)
     ctx.fill()
-    # Inner face cutout
+    # Cutout
     ctx.set_source_rgb(1, 1, 1)
     ctx.arc(cx, cy + r * 0.22, r * 0.42, 0, math.pi * 2)
     ctx.fill()
     ctx.restore()
     return size
 
-def draw_globe_icon(ctx, x, y, size=8.5, color=C_DARK):
+def draw_globe_icon(ctx, x, y, size=9.0, color=C_NAVY):
     ctx.save()
     ctx.set_source_rgb(*color)
     ctx.set_line_width(0.85)
@@ -187,12 +190,12 @@ class PDFCanvas:
         ctx = self.ctx
         ctx.save()
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(8)
+        ctx.set_font_size(8.5)
         ctx.set_source_rgb(*C_MUTED)
         
         # Left footer
         ctx.move_to(MARGIN_X, PAGE_HEIGHT - 22)
-        ctx.show_text("Ángel Sarrión · Senior Business Analyst Lead & IT Specialist · github.com/angelsarrion/ASCV")
+        ctx.show_text("Ángel Sarrión · Senior Business Analyst Lead & IT Specialist · angelsarrion.github.io/ASCV")
         
         # Right footer
         page_str = f"Page {self.current_page} of {self.total_pages}"
@@ -207,47 +210,46 @@ class PDFCanvas:
         role = get_text(profile["role"], lang).upper()
         loc = get_text(profile["location"], lang)
         email = profile["email"]
-        portfolio_text = "angelsarrion.github.io/ASCV"
 
-        # Name
+        # Name in Deep Executive Navy
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
         ctx.set_font_size(20)
-        ctx.set_source_rgb(*C_DARK)
+        ctx.set_source_rgb(*C_NAVY)
         ext = ctx.text_extents(name)
         ctx.move_to(PAGE_WIDTH / 2 - ext.width / 2, self.y + 16)
         ctx.show_text(name)
-        self.y += 24
+        self.y += 26
 
-        # Role
+        # Subtitle / Role in Dark Charcoal
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(10)
-        ctx.set_source_rgb(*C_BLUE)
+        ctx.set_font_size(10.5)
+        ctx.set_source_rgb(*C_DARK)
         ext = ctx.text_extents(role)
-        ctx.move_to(PAGE_WIDTH / 2 - ext.width / 2, self.y + 10)
+        ctx.move_to(PAGE_WIDTH / 2 - ext.width / 2, self.y + 8)
         ctx.show_text(role)
         self.y += 18
 
         # --- LINE 1: [Envelope] email · [Pin] location ---
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(8.5)
+        ctx.set_font_size(9.0)
         email_ext = ctx.text_extents(email)
         loc_ext = ctx.text_extents(loc)
-        dot_ext = ctx.text_extents("  ·  ")
+        dot_ext = ctx.text_extents("   ·   ")
 
-        icon_sz = 8.5
+        icon_sz = 9.0
         w_email_icon = icon_sz * 1.3
         w_pin_icon = icon_sz * 0.8
 
-        line1_w = (w_email_icon + 4 + email_ext.width + 
+        line1_w = (w_email_icon + 5 + email_ext.width + 
                    dot_ext.width + 
-                   w_pin_icon + 4 + loc_ext.width)
+                   w_pin_icon + 5 + loc_ext.width)
         
         cur_x = (PAGE_WIDTH - line1_w) / 2
         line1_y = self.y + 4
 
-        # Draw Email Icon & Text
-        draw_email_icon(ctx, cur_x, line1_y, icon_sz, C_DARK)
-        cur_x += w_email_icon + 4
+        # Email
+        draw_email_icon(ctx, cur_x, line1_y, icon_sz, C_NAVY)
+        cur_x += w_email_icon + 5
         ctx.set_source_rgb(*C_DARK)
         ctx.move_to(cur_x, line1_y)
         ctx.show_text(email)
@@ -256,16 +258,16 @@ class PDFCanvas:
         # Dot
         ctx.set_source_rgb(*C_MUTED)
         ctx.move_to(cur_x, line1_y)
-        ctx.show_text("  ·  ")
+        ctx.show_text("   ·   ")
         cur_x += dot_ext.width
 
-        # Draw Pin Icon & Location
-        draw_pin_icon(ctx, cur_x, line1_y, icon_sz, C_DARK)
-        cur_x += w_pin_icon + 4
+        # Pin
+        draw_pin_icon(ctx, cur_x, line1_y, icon_sz, C_NAVY)
+        cur_x += w_pin_icon + 5
         ctx.set_source_rgb(*C_DARK)
         ctx.move_to(cur_x, line1_y)
         ctx.show_text(loc)
-        self.y += 14
+        self.y += 16
 
         # --- LINE 2: [in] LinkedIn · [GitHub] GitHub · [Globe] Portfolio ---
         li_text = "LinkedIn"
@@ -280,18 +282,18 @@ class PDFCanvas:
         w_gh_icon = icon_sz
         w_wb_icon = icon_sz
 
-        line2_w = (w_li_icon + 4 + li_ext.width + 
+        line2_w = (w_li_icon + 5 + li_ext.width + 
                    dot_ext.width + 
-                   w_gh_icon + 4 + gh_ext.width + 
+                   w_gh_icon + 5 + gh_ext.width + 
                    dot_ext.width + 
-                   w_wb_icon + 4 + port_ext.width)
+                   w_wb_icon + 5 + port_ext.width)
         
         cur_x2 = (PAGE_WIDTH - line2_w) / 2
         line2_y = self.y + 3
 
         # LinkedIn
-        draw_linkedin_icon(ctx, cur_x2, line2_y, icon_sz, C_DARK)
-        cur_x2 += w_li_icon + 4
+        draw_linkedin_icon(ctx, cur_x2, line2_y, icon_sz, C_NAVY)
+        cur_x2 += w_li_icon + 5
         ctx.set_source_rgb(*C_DARK)
         ctx.move_to(cur_x2, line2_y)
         ctx.show_text(li_text)
@@ -300,12 +302,12 @@ class PDFCanvas:
         # Dot
         ctx.set_source_rgb(*C_MUTED)
         ctx.move_to(cur_x2, line2_y)
-        ctx.show_text("  ·  ")
+        ctx.show_text("   ·   ")
         cur_x2 += dot_ext.width
 
         # GitHub
-        draw_github_icon(ctx, cur_x2, line2_y, icon_sz, C_DARK)
-        cur_x2 += w_gh_icon + 4
+        draw_github_icon(ctx, cur_x2, line2_y, icon_sz, C_NAVY)
+        cur_x2 += w_gh_icon + 5
         ctx.set_source_rgb(*C_DARK)
         ctx.move_to(cur_x2, line2_y)
         ctx.show_text(gh_text)
@@ -314,50 +316,47 @@ class PDFCanvas:
         # Dot
         ctx.set_source_rgb(*C_MUTED)
         ctx.move_to(cur_x2, line2_y)
-        ctx.show_text("  ·  ")
+        ctx.show_text("   ·   ")
         cur_x2 += dot_ext.width
 
         # Portfolio
-        draw_globe_icon(ctx, cur_x2, line2_y, icon_sz, C_DARK)
-        cur_x2 += w_wb_icon + 4
+        draw_globe_icon(ctx, cur_x2, line2_y, icon_sz, C_NAVY)
+        cur_x2 += w_wb_icon + 5
         ctx.set_source_rgb(*C_DARK)
         ctx.move_to(cur_x2, line2_y)
         ctx.show_text(port_text)
-        self.y += 12
+        self.y += 14
 
-        # Dual-tone rule line (Synthwave Magenta to Cyan)
+        # Solid Executive Navy Divider Rule
         ctx.save()
-        ctx.set_line_width(1.5)
-        pat = cairo.LinearGradient(MARGIN_X, self.y, PAGE_WIDTH - MARGIN_X, self.y)
-        pat.add_color_stop_rgb(0.0, *C_PINK)
-        pat.add_color_stop_rgb(1.0, *C_BLUE)
-        ctx.set_source(pat)
+        ctx.set_line_width(1.2)
+        ctx.set_source_rgb(*C_LINE)
         ctx.move_to(MARGIN_X, self.y + 4)
         ctx.line_to(PAGE_WIDTH - MARGIN_X, self.y + 4)
         ctx.stroke()
         ctx.restore()
-        self.y += 14
+        self.y += 16
 
     def draw_section_title(self, title):
         ctx = self.ctx
-        self.y += 6
+        self.y += 8
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(9.5)
-        ctx.set_source_rgb(*C_PINK)
+        ctx.set_font_size(10.5)
+        ctx.set_source_rgb(*C_NAVY)
         ctx.move_to(MARGIN_X, self.y)
         ctx.show_text(title.upper())
 
         # Fine rule line under title
         ctx.save()
-        ctx.set_line_width(0.8)
-        ctx.set_source_rgb(*C_BLUE)
+        ctx.set_line_width(0.9)
+        ctx.set_source_rgb(*C_LINE)
         ctx.move_to(MARGIN_X, self.y + 4)
         ctx.line_to(PAGE_WIDTH - MARGIN_X, self.y + 4)
         ctx.stroke()
         ctx.restore()
-        self.y += 14
+        self.y += 16
 
-    def draw_paragraph(self, text, font_size=8.5, line_spacing=11.5, color=C_DARK, italic=False):
+    def draw_paragraph(self, text, font_size=9.0, line_spacing=13.5, color=C_DARK, italic=False):
         ctx = self.ctx
         slant = cairo.FONT_SLANT_ITALIC if italic else cairo.FONT_SLANT_NORMAL
         ctx.select_font_face("Sans", slant, cairo.FONT_WEIGHT_NORMAL)
@@ -369,22 +368,22 @@ class PDFCanvas:
             ctx.show_text(l)
             self.y += line_spacing
 
-    def draw_bullet(self, text, indent=14, font_size=8, line_spacing=10.5):
+    def draw_bullet(self, text, indent=14, font_size=8.8, line_spacing=13.0):
         ctx = self.ctx
         
-        # Draw native vector triangle bullet (0% tofu, 100% vector precision)
+        # Draw native vector triangle bullet in Navy
         ctx.save()
-        ctx.set_source_rgb(*C_PINK)
+        ctx.set_source_rgb(*C_NAVY)
         bx = MARGIN_X + 2
         by = self.y + font_size * 0.55
         ctx.move_to(bx, by - 2.8)
-        ctx.line_to(bx + 3.8, by)
+        ctx.line_to(bx + 4.0, by)
         ctx.line_to(bx, by + 2.8)
         ctx.close_path()
         ctx.fill()
         ctx.restore()
         
-        # Text
+        # Text with spacious leading
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
         ctx.set_font_size(font_size)
         ctx.set_source_rgb(*C_DARK)
@@ -415,8 +414,8 @@ def render_page1(canvas, data, lang="en"):
     
     # Executive Summary
     canvas.draw_section_title(t_summary)
-    canvas.draw_paragraph(summary, font_size=8.5, line_spacing=11.5)
-    canvas.y += 6
+    canvas.draw_paragraph(summary, font_size=9.0, line_spacing=13.5)
+    canvas.y += 8
 
     # Top Projects
     canvas.draw_section_title(t_top)
@@ -430,45 +429,45 @@ def render_page1(canvas, data, lang="en"):
         p_impact = get_text(p["impact"], lang)
         p_stack = ", ".join(p["stack"])
 
-        # Project Header Row (No "TOP #" tag)
+        # Project Title & Company Line
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(9.5)
+        ctx.set_font_size(10.0)
         ctx.set_source_rgb(*C_DARK)
         ctx.move_to(MARGIN_X, canvas.y + 8)
         ctx.show_text(p_title)
 
-        # Period & Company
+        # Right-aligned period & company
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(8.5)
-        ctx.set_source_rgb(*C_BLUE)
+        ctx.set_font_size(9.0)
+        ctx.set_source_rgb(*C_NAVY)
         right_str = f"{p_comp} · {p_period}"
         ext = ctx.text_extents(right_str)
         ctx.move_to(PAGE_WIDTH - MARGIN_X - ext.width, canvas.y + 8)
         ctx.show_text(right_str)
-        canvas.y += 12
+        canvas.y += 14
 
         # Role Subtitle
         ctx.select_font_face("Sans", cairo.FONT_SLANT_ITALIC, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(8.5)
-        ctx.set_source_rgb(*C_PINK)
+        ctx.set_font_size(9.0)
+        ctx.set_source_rgb(*C_NAVY)
         ctx.move_to(MARGIN_X, canvas.y + 6)
         ctx.show_text(f"Role: {p_role}")
-        canvas.y += 10
+        canvas.y += 12
 
-        # Overview
-        canvas.draw_paragraph(p_overview, font_size=8, line_spacing=10.5, color=C_MUTED)
+        # Overview Paragraph
+        canvas.draw_paragraph(p_overview, font_size=8.8, line_spacing=12.5, color=C_MUTED)
         
-        # 2 Key Bullets
+        # 2 Key Bullets with spacious leading
         for b in p_impact[:2]:
-            canvas.draw_bullet(b, font_size=7.8, line_spacing=10)
+            canvas.draw_bullet(b, font_size=8.5, line_spacing=12.2)
 
         # Tech Stack Tag Line
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(7.5)
-        ctx.set_source_rgb(*C_BLUE)
+        ctx.set_font_size(8.0)
+        ctx.set_source_rgb(*C_MUTED)
         ctx.move_to(MARGIN_X + 14, canvas.y + 6)
         ctx.show_text(f"Stack: {p_stack}")
-        canvas.y += 12
+        canvas.y += 16
 
 def render_page2(canvas, data, lang="en"):
     experience = data["experience"]
@@ -491,42 +490,42 @@ def render_page2(canvas, data, lang="en"):
         bullets = get_text(e["bullets"], lang)
         stack = ", ".join(e.get("stack", []))
 
-        # Company & Dates
+        # Company Header
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(9)
+        ctx.set_font_size(9.8)
         ctx.set_source_rgb(*C_DARK)
         ctx.move_to(MARGIN_X, canvas.y + 8)
         ctx.show_text(comp)
 
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(8)
-        ctx.set_source_rgb(*C_BLUE)
+        ctx.set_font_size(8.8)
+        ctx.set_source_rgb(*C_NAVY)
         ext = ctx.text_extents(dates)
         ctx.move_to(PAGE_WIDTH - MARGIN_X - ext.width, canvas.y + 8)
         ctx.show_text(dates)
-        canvas.y += 11
+        canvas.y += 13
 
         # Position & Location
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(8.5)
-        ctx.set_source_rgb(*C_PINK)
+        ctx.set_font_size(9.0)
+        ctx.set_source_rgb(*C_NAVY)
         ctx.move_to(MARGIN_X, canvas.y + 6)
         ctx.show_text(f"{pos} · {loc}")
-        canvas.y += 9
+        canvas.y += 11
 
         # Bullets
         bullet_count = 3 if "Santander" in comp else 2
         for b in bullets[:bullet_count]:
-            canvas.draw_bullet(b, font_size=7.8, line_spacing=9.8)
+            canvas.draw_bullet(b, font_size=8.5, line_spacing=12.2)
 
         if stack:
             ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-            ctx.set_font_size(7.5)
+            ctx.set_font_size(8.0)
             ctx.set_source_rgb(*C_MUTED)
             ctx.move_to(MARGIN_X + 14, canvas.y + 5)
             ctx.show_text(f"Stack: {stack}")
-            canvas.y += 8
-        canvas.y += 4
+            canvas.y += 10
+        canvas.y += 8
 
     # Skills Matrix
     canvas.draw_section_title(t_skills)
@@ -535,7 +534,7 @@ def render_page2(canvas, data, lang="en"):
         items = ", ".join(s["items"])
         ctx = canvas.ctx
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(7.8)
+        ctx.set_font_size(8.5)
         ctx.set_source_rgb(*C_DARK)
         ctx.move_to(MARGIN_X, canvas.y + 7)
         cat_str = f"• {cat}: "
@@ -543,11 +542,11 @@ def render_page2(canvas, data, lang="en"):
         ext = ctx.text_extents(cat_str)
 
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(7.8)
+        ctx.set_font_size(8.5)
         ctx.set_source_rgb(*C_MUTED)
         ctx.move_to(MARGIN_X + ext.width, canvas.y + 7)
         ctx.show_text(items)
-        canvas.y += 10
+        canvas.y += 13
 
     # Education & Languages
     canvas.draw_section_title(t_edu)
@@ -560,34 +559,34 @@ def render_page2(canvas, data, lang="en"):
         
         ctx = canvas.ctx
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(8.5)
+        ctx.set_font_size(9.0)
         ctx.set_source_rgb(*C_DARK)
         ctx.move_to(MARGIN_X, canvas.y + 7)
         ctx.show_text(f"{inst} — {deg}")
         
-        ctx.set_font_size(8)
-        ctx.set_source_rgb(*C_BLUE)
+        ctx.set_font_size(8.5)
+        ctx.set_source_rgb(*C_NAVY)
         ext = ctx.text_extents(period)
         ctx.move_to(PAGE_WIDTH - MARGIN_X - ext.width, canvas.y + 7)
         ctx.show_text(period)
-        canvas.y += 10
+        canvas.y += 12
 
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(7.8)
+        ctx.set_font_size(8.5)
         ctx.set_source_rgb(*C_MUTED)
         ctx.move_to(MARGIN_X, canvas.y + 6)
         ctx.show_text(f"{field} · {loc}")
-        canvas.y += 12
+        canvas.y += 14
 
     # Languages
     lang_str = " | ".join([f"{get_text(l['language'], lang)}: {get_text(l['proficiency'], lang)}" for l in languages])
     ctx = canvas.ctx
     ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-    ctx.set_font_size(8)
-    ctx.set_source_rgb(*C_PINK)
+    ctx.set_font_size(8.8)
+    ctx.set_source_rgb(*C_NAVY)
     ctx.move_to(MARGIN_X, canvas.y + 6)
     ctx.show_text(f"Languages: {lang_str}")
-    canvas.y += 10
+    canvas.y += 12
 
 def generate_pdf(data, lang="en", outfile="output.pdf"):
     canvas = PDFCanvas(outfile, total_pages=2, surface_type="pdf")
