@@ -39,6 +39,23 @@
     });
   }
 
+  // --- Language Switcher Navigation (Works on file://, localhost, and GitHub Pages) ---
+  function initLanguageSwitcher() {
+    document.querySelectorAll('.lang-btn, .lang-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#' || this.classList.contains('active')) {
+          e.preventDefault();
+          return;
+        }
+        e.preventDefault();
+        const isTargetEs = href.includes('es');
+        localStorage.setItem('as_lang_pref', isTargetEs ? 'es' : 'en');
+        window.location.href = href;
+      });
+    });
+  }
+
   // --- Mobile Menu Toggle ---
   const mobileToggle = document.getElementById('mobile-menu-toggle');
   const navMenu = document.getElementById('nav-menu');
@@ -103,7 +120,6 @@
       });
       timeEl.textContent = timeStr;
     } catch (e) {
-      // Fallback
       const now = new Date();
       timeEl.textContent = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
     }
@@ -112,6 +128,7 @@
   // --- Initialize ---
   document.addEventListener('DOMContentLoaded', function () {
     initTheme();
+    initLanguageSwitcher();
     updateActiveNav();
     updateLiveClock();
     setInterval(updateLiveClock, 10000);

@@ -7,10 +7,12 @@ Produces:
   - docs/AngelSarrion-CV-es.pdf (Spanish)
   - docs/assets/cv-preview.png (English preview thumbnail)
   - docs/assets/cv-preview-es.png (Spanish preview thumbnail)
+Icons are drawn as native scalable vector shapes — 0% tofu, 100% vector precision.
 """
 
 import os
 import json
+import math
 import cairo
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +23,7 @@ ASSETS_DIR = os.path.join(DOCS_DIR, "assets")
 PAGE_WIDTH = 595.28   # A4 Width in points
 PAGE_HEIGHT = 841.89  # A4 Height in points
 MARGIN_X = 40.0
-MARGIN_Y = 38.0
+MARGIN_Y = 36.0
 CONTENT_WIDTH = PAGE_WIDTH - 2 * MARGIN_X
 
 # Color definitions
@@ -56,6 +58,107 @@ def wrap_text(ctx, text, max_width):
         lines.append(" ".join(current_line))
     return lines
 
+# =========================================================================
+# Native Cairo Vector Icon Drawers (No Unicode Font Dependencies)
+# =========================================================================
+
+def draw_email_icon(ctx, x, y, size=8.5, color=C_DARK):
+    ctx.save()
+    ctx.set_source_rgb(*color)
+    w = size * 1.3
+    h = size * 0.82
+    ctx.rectangle(x, y - h, w, h)
+    ctx.fill()
+    # White inner flap
+    ctx.set_source_rgb(1, 1, 1)
+    ctx.set_line_width(0.9)
+    ctx.move_to(x + 1, y - h + 1)
+    ctx.line_to(x + w / 2, y - h * 0.45)
+    ctx.line_to(x + w - 1, y - h + 1)
+    ctx.stroke()
+    ctx.restore()
+    return w
+
+def draw_pin_icon(ctx, x, y, size=8.5, color=C_DARK):
+    ctx.save()
+    ctx.set_source_rgb(*color)
+    r = size * 0.36
+    cx = x + r
+    cy = y - size * 0.65
+    ctx.arc(cx, cy, r, 0, math.pi * 2)
+    ctx.fill()
+    ctx.move_to(cx - r * 0.85, cy + r * 0.2)
+    ctx.line_to(cx, y)
+    ctx.line_to(cx + r * 0.85, cy + r * 0.2)
+    ctx.fill()
+    # Inner hole
+    ctx.set_source_rgb(1, 1, 1)
+    ctx.arc(cx, cy, r * 0.4, 0, math.pi * 2)
+    ctx.fill()
+    ctx.restore()
+    return size * 0.8
+
+def draw_linkedin_icon(ctx, x, y, size=8.5, color=C_DARK):
+    ctx.save()
+    ctx.set_source_rgb(*color)
+    w = size
+    h = size
+    ctx.rectangle(x, y - h, w, h)
+    ctx.fill()
+    # White 'in'
+    ctx.set_source_rgb(1, 1, 1)
+    ctx.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+    ctx.set_font_size(size * 0.7)
+    ctx.move_to(x + size * 0.16, y - size * 0.22)
+    ctx.show_text('in')
+    ctx.restore()
+    return w
+
+def draw_github_icon(ctx, x, y, size=8.5, color=C_DARK):
+    ctx.save()
+    ctx.set_source_rgb(*color)
+    r = size * 0.45
+    cx = x + r
+    cy = y - r
+    ctx.arc(cx, cy, r, 0, math.pi * 2)
+    ctx.fill()
+    # Ears
+    ctx.move_to(cx - r * 0.7, cy - r * 0.5)
+    ctx.line_to(cx - r * 0.45, cy - r * 1.05)
+    ctx.line_to(cx - r * 0.15, cy - r * 0.75)
+    ctx.fill()
+    ctx.move_to(cx + r * 0.7, cy - r * 0.5)
+    ctx.line_to(cx + r * 0.45, cy - r * 1.05)
+    ctx.line_to(cx + r * 0.15, cy - r * 0.75)
+    ctx.fill()
+    # Inner face cutout
+    ctx.set_source_rgb(1, 1, 1)
+    ctx.arc(cx, cy + r * 0.22, r * 0.42, 0, math.pi * 2)
+    ctx.fill()
+    ctx.restore()
+    return size
+
+def draw_globe_icon(ctx, x, y, size=8.5, color=C_DARK):
+    ctx.save()
+    ctx.set_source_rgb(*color)
+    ctx.set_line_width(0.85)
+    r = size * 0.45
+    cx = x + r
+    cy = y - r
+    ctx.arc(cx, cy, r, 0, math.pi * 2)
+    ctx.stroke()
+    ctx.move_to(cx - r, cy)
+    ctx.line_to(cx + r, cy)
+    ctx.stroke()
+    ctx.save()
+    ctx.translate(cx, cy)
+    ctx.scale(0.5, 1.0)
+    ctx.arc(0, 0, r, 0, math.pi * 2)
+    ctx.stroke()
+    ctx.restore()
+    ctx.restore()
+    return size
+
 class PDFCanvas:
     def __init__(self, filename, total_pages=2, surface_type="pdf"):
         self.filename = filename
@@ -63,16 +166,12 @@ class PDFCanvas:
         self.current_page = 1
         self.surface_type = surface_type
         if surface_type == "image":
-            # 2x resolution for thumbnail (width ~ 600px, height ~ 848px)
-            self.scale = 1.0
             self.surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, int(PAGE_WIDTH), int(PAGE_HEIGHT))
         else:
-            self.scale = 1.0
             self.surface = cairo.PDFSurface(filename, PAGE_WIDTH, PAGE_HEIGHT)
         
         self.ctx = cairo.Context(self.surface)
         if surface_type == "image":
-            # Paint white background
             self.ctx.set_source_rgb(1, 1, 1)
             self.ctx.paint()
             
@@ -108,12 +207,11 @@ class PDFCanvas:
         role = get_text(profile["role"], lang).upper()
         loc = get_text(profile["location"], lang)
         email = profile["email"]
-        linkedin = "linkedin.com/in/angelsarrion"
-        github = "github.com/angelsarrion"
+        portfolio_text = "angelsarrion.github.io/ASCV"
 
         # Name
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(19)
+        ctx.set_font_size(20)
         ctx.set_source_rgb(*C_DARK)
         ext = ctx.text_extents(name)
         ctx.move_to(PAGE_WIDTH / 2 - ext.width / 2, self.y + 16)
@@ -127,19 +225,107 @@ class PDFCanvas:
         ext = ctx.text_extents(role)
         ctx.move_to(PAGE_WIDTH / 2 - ext.width / 2, self.y + 10)
         ctx.show_text(role)
-        self.y += 16
+        self.y += 18
 
-        # Meta Contacts Line
+        # --- LINE 1: [Envelope] email · [Pin] location ---
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(8)
+        ctx.set_font_size(8.5)
+        email_ext = ctx.text_extents(email)
+        loc_ext = ctx.text_extents(loc)
+        dot_ext = ctx.text_extents("  ·  ")
+
+        icon_sz = 8.5
+        w_email_icon = icon_sz * 1.3
+        w_pin_icon = icon_sz * 0.8
+
+        line1_w = (w_email_icon + 4 + email_ext.width + 
+                   dot_ext.width + 
+                   w_pin_icon + 4 + loc_ext.width)
+        
+        cur_x = (PAGE_WIDTH - line1_w) / 2
+        line1_y = self.y + 4
+
+        # Draw Email Icon & Text
+        draw_email_icon(ctx, cur_x, line1_y, icon_sz, C_DARK)
+        cur_x += w_email_icon + 4
+        ctx.set_source_rgb(*C_DARK)
+        ctx.move_to(cur_x, line1_y)
+        ctx.show_text(email)
+        cur_x += email_ext.width
+
+        # Dot
         ctx.set_source_rgb(*C_MUTED)
-        contact_line = f"📍 {loc}   •   ✉ {email}   •   🔗 {linkedin}   •   💻 {github}"
-        ext = ctx.text_extents(contact_line)
-        ctx.move_to(PAGE_WIDTH / 2 - ext.width / 2, self.y + 8)
-        ctx.show_text(contact_line)
+        ctx.move_to(cur_x, line1_y)
+        ctx.show_text("  ·  ")
+        cur_x += dot_ext.width
+
+        # Draw Pin Icon & Location
+        draw_pin_icon(ctx, cur_x, line1_y, icon_sz, C_DARK)
+        cur_x += w_pin_icon + 4
+        ctx.set_source_rgb(*C_DARK)
+        ctx.move_to(cur_x, line1_y)
+        ctx.show_text(loc)
         self.y += 14
 
-        # Dual-tone rule line
+        # --- LINE 2: [in] LinkedIn · [GitHub] GitHub · [Globe] Portfolio ---
+        li_text = "LinkedIn"
+        gh_text = "GitHub"
+        port_text = "Portfolio"
+
+        li_ext = ctx.text_extents(li_text)
+        gh_ext = ctx.text_extents(gh_text)
+        port_ext = ctx.text_extents(port_text)
+
+        w_li_icon = icon_sz
+        w_gh_icon = icon_sz
+        w_wb_icon = icon_sz
+
+        line2_w = (w_li_icon + 4 + li_ext.width + 
+                   dot_ext.width + 
+                   w_gh_icon + 4 + gh_ext.width + 
+                   dot_ext.width + 
+                   w_wb_icon + 4 + port_ext.width)
+        
+        cur_x2 = (PAGE_WIDTH - line2_w) / 2
+        line2_y = self.y + 3
+
+        # LinkedIn
+        draw_linkedin_icon(ctx, cur_x2, line2_y, icon_sz, C_DARK)
+        cur_x2 += w_li_icon + 4
+        ctx.set_source_rgb(*C_DARK)
+        ctx.move_to(cur_x2, line2_y)
+        ctx.show_text(li_text)
+        cur_x2 += li_ext.width
+
+        # Dot
+        ctx.set_source_rgb(*C_MUTED)
+        ctx.move_to(cur_x2, line2_y)
+        ctx.show_text("  ·  ")
+        cur_x2 += dot_ext.width
+
+        # GitHub
+        draw_github_icon(ctx, cur_x2, line2_y, icon_sz, C_DARK)
+        cur_x2 += w_gh_icon + 4
+        ctx.set_source_rgb(*C_DARK)
+        ctx.move_to(cur_x2, line2_y)
+        ctx.show_text(gh_text)
+        cur_x2 += gh_ext.width
+
+        # Dot
+        ctx.set_source_rgb(*C_MUTED)
+        ctx.move_to(cur_x2, line2_y)
+        ctx.show_text("  ·  ")
+        cur_x2 += dot_ext.width
+
+        # Portfolio
+        draw_globe_icon(ctx, cur_x2, line2_y, icon_sz, C_DARK)
+        cur_x2 += w_wb_icon + 4
+        ctx.set_source_rgb(*C_DARK)
+        ctx.move_to(cur_x2, line2_y)
+        ctx.show_text(port_text)
+        self.y += 12
+
+        # Dual-tone rule line (Synthwave Magenta to Cyan)
         ctx.save()
         ctx.set_line_width(1.5)
         pat = cairo.LinearGradient(MARGIN_X, self.y, PAGE_WIDTH - MARGIN_X, self.y)
@@ -185,15 +371,22 @@ class PDFCanvas:
 
     def draw_bullet(self, text, indent=14, font_size=8, line_spacing=10.5):
         ctx = self.ctx
-        ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(font_size)
         
-        # Bullet symbol
+        # Draw native vector triangle bullet (0% tofu, 100% vector precision)
+        ctx.save()
         ctx.set_source_rgb(*C_PINK)
-        ctx.move_to(MARGIN_X + 2, self.y + font_size - 1)
-        ctx.show_text("▸")
+        bx = MARGIN_X + 2
+        by = self.y + font_size * 0.55
+        ctx.move_to(bx, by - 2.8)
+        ctx.line_to(bx + 3.8, by)
+        ctx.line_to(bx, by + 2.8)
+        ctx.close_path()
+        ctx.fill()
+        ctx.restore()
         
         # Text
+        ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        ctx.set_font_size(font_size)
         ctx.set_source_rgb(*C_DARK)
         available_w = CONTENT_WIDTH - indent
         lines = wrap_text(ctx, text, available_w)

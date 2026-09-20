@@ -43,12 +43,15 @@ def generate_html(data, lang="en"):
 
     is_es = (lang == "es")
     base_prefix = "../" if is_es else "./"
-    lang_switch_url = "../" if is_es else "es/"
+    
+    # Explicit file paths for flawless navigation across file://, localhost, and GitHub Pages
+    lang_switch_url = "../index.html" if is_es else "es/index.html"
     lang_switch_label = "Switch to English" if is_es else "Cambiar a Español"
     lang_switch_flag = "🇬🇧 English" if is_es else "🇪🇸 Español"
+    
     preview_img = f"{base_prefix}assets/cv-preview-es.png" if is_es else f"{base_prefix}assets/cv-preview.png"
-    pdf_filename = f"AngelSarrion-CV-es.pdf" if is_es else "AngelSarrion-CV.pdf"
-    tex_filename = f"main-es.tex" if is_es else "main.tex"
+    pdf_filename = "AngelSarrion-CV-es.pdf" if is_es else "AngelSarrion-CV.pdf"
+    tex_filename = "main-es.tex" if is_es else "main.tex"
 
     # Localized labels
     L = {
@@ -173,22 +176,22 @@ def generate_html(data, lang="en"):
         prof = html.escape(get_text(l["proficiency"], lang))
         lang_html.append(f'<span class="tech-tag" style="font-size: 0.95rem; padding: 6px 14px;"><strong>{name}:</strong>&nbsp;{prof}</span>')
 
-    # Language Switcher Pill in Navbar
+    # Direct Language Switcher Pill in Navbar
     if is_es:
         lang_pill = f"""
         <div class="lang-switcher-pill" aria-label="Idioma">
-          <a href="../" class="lang-btn" title="English">EN</a>
+          <a href="../index.html" class="lang-btn" title="Switch to English">EN</a>
           <span class="lang-btn active">ES</span>
         </div>
-        <a href="../" class="btn-control" title="Switch to English">{lang_switch_flag}</a>
+        <a href="../index.html" class="btn-control lang-toggle-btn" title="Switch to English">{lang_switch_flag}</a>
         """
     else:
         lang_pill = f"""
         <div class="lang-switcher-pill" aria-label="Language">
           <span class="lang-btn active">EN</span>
-          <a href="es/" class="lang-btn" title="Español">ES</a>
+          <a href="es/index.html" class="lang-btn" title="Cambiar a Español">ES</a>
         </div>
-        <a href="es/" class="btn-control" title="Cambiar a Español">{lang_switch_flag}</a>
+        <a href="es/index.html" class="btn-control lang-toggle-btn" title="Cambiar a Español">{lang_switch_flag}</a>
         """
 
     html_content = f"""<!DOCTYPE html>
@@ -672,6 +675,7 @@ def generate_latex(data, lang="en"):
 \\usepackage{{enumitem}}
 \\usepackage{{titlesec}}
 \\usepackage{{tikz}}
+\\usepackage{{fontawesome5}}
 
 % --- Synthwave Color Palette ---
 \\definecolor{{SynthPink}}{{HTML}}{{FF2A85}}
@@ -700,15 +704,16 @@ def generate_latex(data, lang="en"):
 \\begin{{document}}
 \\pagestyle{{empty}}
 
-% --- Header ---
+% --- Header with Vector Icons (Matching Screenshot) ---
 \\begin{{center}}
     {{\\Huge\\textbf{{\\scshape {profile['name']}}}}} \\\\[4pt]
     {{\\large\\color{{SynthBlue}}\\textbf{{{role_str}}}}} \\\\[6pt]
     {{\\small
-        📍 {loc_str} \\ $\\cdot$ \\ 
-        ✉ \\href{{mailto:{profile['email']}}}{{{profile['email']}}} \\ $\\cdot$ \\ 
-        🔗 \\href{{{profile['links']['linkedin']}}}{{linkedin.com/in/angelsarrion}} \\ $\\cdot$ \\ 
-        💻 \\href{{{profile['links']['github']}}}{{github.com/angelsarrion}}
+        \\faEnvelope~\\href{{mailto:{profile['email']}}}{{{profile['email']}}} \\ $\\cdot$ \\ 
+        \\faMapMarker*~{{{loc_str}}} \\\\[3pt]
+        \\faLinkedin~\\href{{{profile['links']['linkedin']}}}{{LinkedIn}} \\ $\\cdot$ \\ 
+        \\faGithub~\\href{{{profile['links']['github']}}}{{GitHub}} \\ $\\cdot$ \\ 
+        \\faGlobe~\\href{{https://angelsarrion.github.io/ASCV/}}{{Portfolio}}
     }}
 \\end{{center}}
 
