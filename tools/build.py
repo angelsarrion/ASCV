@@ -44,36 +44,41 @@ def generate_html(data, lang="en"):
     is_es = (lang == "es")
     base_prefix = "../" if is_es else "./"
     lang_switch_url = "../" if is_es else "es/"
-    lang_switch_text = "English" if is_es else "Español"
+    lang_switch_label = "Switch to English" if is_es else "Cambiar a Español"
+    lang_switch_flag = "🇬🇧 English" if is_es else "🇪🇸 Español"
+    preview_img = f"{base_prefix}assets/cv-preview-es.png" if is_es else f"{base_prefix}assets/cv-preview.png"
+    pdf_filename = f"AngelSarrion-CV-es.pdf" if is_es else "AngelSarrion-CV.pdf"
+    tex_filename = f"main-es.tex" if is_es else "main.tex"
 
     # Localized labels
     L = {
         "skip": "Saltar al contenido principal" if is_es else "Skip to main content",
         "nav_about": "Perfil" if is_es else "About",
-        "nav_top": "Proyectos TOP" if is_es else "Top Projects",
+        "nav_top": "Iniciativas" if is_es else "Initiatives",
         "nav_exp": "Experiencia" if is_es else "Experience",
         "nav_skills": "Competencias" if is_es else "Skills",
         "nav_edu": "Educación" if is_es else "Education",
-        "nav_cv": "CV Interactivo" if is_es else "Interactive CV",
-        "status_tag": "Sistemas Críticos de Banca · Riesgo de Crédito · Arquitectura TI" if is_es else "Mission-Critical Banking · Credit Risk · Enterprise Architecture",
+        "nav_cv": "CV y Contacto" if is_es else "CV & Contact",
+        "status_tag": "Riesgo de Crédito · Arquitectura de Soluciones · Liderazgo TI" if is_es else "Credit Risk · Enterprise Architecture · Technical Leadership",
         "btn_dl_pdf": "Descargar CV (PDF)" if is_es else "Download CV (PDF)",
-        "btn_print_pdf": "Imprimir / Generar PDF" if is_es else "Print / Save as PDF",
-        "btn_tex": "Código Fuente LaTeX" if is_es else "LaTeX Source (.tex)",
-        "btn_view_cv": "Ver CV Completo" if is_es else "View Full CV",
-        "sec_abstract": "I. EXTRACTO EJECUTIVO Y PERFIL PROFESIONAL" if is_es else "I. EXECUTIVE PROFILE & SUMMARY",
-        "sec_top": "II. INICIATIVAS ESTRATÉGICAS DESTACADAS (TOP 3)" if is_es else "II. TOP STRATEGIC INITIATIVES (FEATURED)",
-        "sec_exp": "III. TRAYECTORIA PROFESIONAL" if is_es else "III. PROFESSIONAL CAREER HISTORY",
-        "sec_skills": "IV. MATRIZ DE COMPETENCIAS Y GOBERNANZA TÉCNICA" if is_es else "IV. TECHNICAL MATRIX & GOVERNANCE",
-        "sec_edu": "V. CREDENCIALES ACADÉMICAS E IDIOMAS" if is_es else "V. ACADEMIC CREDENTIALS & LANGUAGES",
-        "sec_cv": "VI. CURRÍCULUM VITAE (FORMATO DOCUMENTAL LATEX)" if is_es else "VI. CURRICULUM VITAE (LATEX DOCUMENT VIEW)",
-        "key_impact": "Hitos de Arquitectura e Impacto de Negocio:" if is_es else "Key Architectural Milestones & Business Impact:",
-        "stack_label": "Stack Tecnológico y Entornos:" if is_es else "Tech Stack & Environments:",
-        "cv_viewer_title": "DOCUMENTO COMPILADO LATEX // VISTA PREVIA" if is_es else "LATEX TYPESET DOCUMENT // LIVE PREVIEW",
-        "cv_data_label": "Este CV como datos:" if is_es else "This CV as data:",
-        "footer_note": "Generado automáticamente a partir de este repositorio, siempre actualizado." if is_es else "Auto-generated from this repository, always up to date."
+        "btn_email": "Enviar Email" if is_es else "Send Email",
+        "btn_print_page": "Imprimir esta página" if is_es else "Print this page",
+        "sec_abstract": "Perfil Ejecutivo y Alcance" if is_es else "Executive Profile & Scope",
+        "sec_top": "Iniciativas Estratégicas Destacadas" if is_es else "Strategic Initiatives (Featured)",
+        "sec_exp": "Trayectoria Profesional" if is_es else "Professional Career History",
+        "sec_skills": "Matriz de Competencias y Gobernanza" if is_es else "Technical Taxonomy & Governance",
+        "sec_edu": "Credenciales Académicas e Idiomas" if is_es else "Academic Credentials & Languages",
+        "sec_cv": "CV y Contacto" if is_es else "CV & Contact",
+        "key_impact": "Hitos Técnicos y de Negocio:" if is_es else "Key Architectural & Business Impact:",
+        "pitch": "Abierto a oportunidades en liderazgo técnico, arquitectura de sistemas y riesgo de crédito — conversemos." if is_es else "Open to conversations about technical leadership, enterprise architecture, and credit risk systems — feel free to reach out.",
+        "local_time": "hora local en España" if is_es else "local time in Spain",
+        "auto_gen": "Generado automáticamente a partir de este repositorio, siempre actualizado." if is_es else "Auto-generated from this repository, always up to date.",
+        "compiled_note": "Este PDF fue compilado con LaTeX — compilación verificada" if is_es else "This PDF was compiled with LaTeX — verified build",
+        "data_label": "Este CV como datos:" if is_es else "This CV as data:",
+        "theme_toggle": "📄 Modo Claro" if is_es else "📄 LaTeX Paper"
     }
 
-    # Top Projects HTML
+    # Top Projects HTML (Clean, no TOP# badges)
     top_projects_html = []
     for proj in top_projects:
         title = get_text(proj["title"], lang)
@@ -83,17 +88,13 @@ def generate_html(data, lang="en"):
         stack_tags = "".join([f'<span class="tech-tag pink">{html.escape(t)}</span>' for t in proj["stack"]])
         
         top_projects_html.append(f"""
-        <article class="top-project-card" id="project-{proj['id']}">
+        <article class="project-card" id="project-{proj['id']}">
           <div class="project-header-row">
-            <div class="project-title-group">
-              <span class="badge-top">{proj['tag']}</span>
-              <h3 class="project-title">{html.escape(title)}</h3>
-            </div>
+            <h3 class="project-title">{html.escape(title)}</h3>
             <span class="project-period">{html.escape(proj['period'])} · {html.escape(proj['company'])}</span>
           </div>
           <div class="project-role-badge">💼 {html.escape(role)}</div>
           <p class="project-overview">{html.escape(overview)}</p>
-          <div class="project-bullets-title">{L['key_impact']}</div>
           <ul class="project-impact-list">
             {impact_items}
           </ul>
@@ -172,52 +173,23 @@ def generate_html(data, lang="en"):
         prof = html.escape(get_text(l["proficiency"], lang))
         lang_html.append(f'<span class="tech-tag" style="font-size: 0.95rem; padding: 6px 14px;"><strong>{name}:</strong>&nbsp;{prof}</span>')
 
-    # PDF file name
-    pdf_filename = f"AngelSarrion-CV-es.pdf" if is_es else "AngelSarrion-CV.pdf"
-    tex_filename = f"main-es.tex" if is_es else "main.tex"
-
-    # Embedded Paper Top Projects Preview
-    paper_top_proj = []
-    for p in top_projects:
-        p_title = html.escape(get_text(p['title'], lang))
-        p_tag = p['tag']
-        p_period = p['period']
-        p_role = html.escape(get_text(p['role'], lang))
-        p_comp = p['company']
-        p_over = html.escape(get_text(p['overview'], lang))
-        p_stack = ", ".join(p['stack'])
-        paper_top_proj.append(f"""
-        <div class="paper-entry">
-          <div class="paper-entry-header">
-            <span>{p_title} ({p_tag})</span>
-            <span>{p_period}</span>
-          </div>
-          <div class="paper-entry-sub">{p_role} · {p_comp}</div>
-          <p style="font-size: 1.05rem; margin-bottom: 6px;">{p_over}</p>
-          <div style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--neon-blue);">Stack: {p_stack}</div>
+    # Language Switcher Pill in Navbar
+    if is_es:
+        lang_pill = f"""
+        <div class="lang-switcher-pill" aria-label="Idioma">
+          <a href="../" class="lang-btn" title="English">EN</a>
+          <span class="lang-btn active">ES</span>
         </div>
-        """)
-
-    # Embedded Paper Experience Preview
-    paper_exp = []
-    for e in experience:
-        e_comp = html.escape(e['company'])
-        e_dates = f"{html.escape(get_text(e['start'], lang))} – {html.escape(get_text(e['end'], lang))}"
-        e_pos = html.escape(get_text(e['position'], lang))
-        e_loc = html.escape(get_text(e['location'], lang))
-        e_bullets = "".join([f"<li>{html.escape(b)}</li>" for b in get_text(e['bullets'], lang)])
-        paper_exp.append(f"""
-        <div class="paper-entry">
-          <div class="paper-entry-header">
-            <span>{e_comp}</span>
-            <span>{e_dates}</span>
-          </div>
-          <div class="paper-entry-sub">{e_pos} · {e_loc}</div>
-          <ul style="padding-left: 20px; font-size: 1.05rem; margin-bottom: 8px;">
-            {e_bullets}
-          </ul>
+        <a href="../" class="btn-control" title="Switch to English">{lang_switch_flag}</a>
+        """
+    else:
+        lang_pill = f"""
+        <div class="lang-switcher-pill" aria-label="Language">
+          <span class="lang-btn active">EN</span>
+          <a href="es/" class="lang-btn" title="Español">ES</a>
         </div>
-        """)
+        <a href="es/" class="btn-control" title="Cambiar a Español">{lang_switch_flag}</a>
+        """
 
     html_content = f"""<!DOCTYPE html>
 <html lang="{lang}">
@@ -261,12 +233,10 @@ def generate_html(data, lang="en"):
       </nav>
 
       <div class="nav-actions">
+        {lang_pill}
         <button id="theme-toggle" class="btn-control" aria-label="Toggle Theme">
-          📄 LaTeX Paper Theme
+          {L['theme_toggle']}
         </button>
-        <a href="{lang_switch_url}" class="btn-control" aria-label="Switch Language">
-          🌐 {lang_switch_text}
-        </a>
         <button id="mobile-menu-toggle" class="mobile-toggle" aria-label="Toggle navigation menu">
           ☰
         </button>
@@ -311,61 +281,60 @@ def generate_html(data, lang="en"):
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             <span>{L['btn_dl_pdf']}</span>
           </a>
-          <button class="btn-secondary action-print-cv">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            <span>{L['btn_print_pdf']}</span>
-          </button>
+          <a href="mailto:{profile['email']}" class="btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>{L['btn_email']}</span>
+          </a>
           <a href="#cv" class="btn-outline-pink">
-            <span>{L['btn_view_cv']}</span>
+            <span>{L['nav_cv']}</span>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- Section 1: Abstract & Summary -->
+    <!-- Section 1: Abstract & Summary (Clean single-line header) -->
     <section class="section-block">
       <div class="container">
-        <header class="latex-section-header">
-          <span class="latex-command">\\section{{{L['sec_abstract']}}}</span>
-          <h2 class="latex-section-title">
-            <span class="section-number">§ 1.</span>
+        <header class="section-header">
+          <h2 class="section-title">
+            <span class="tex-cmd">\\section</span>
+            <span class="section-num">01.</span>
             <span>{L['sec_abstract']}</span>
           </h2>
           <hr class="latex-hrule">
         </header>
 
-        <div class="latex-abstract-card">
-          <div class="abstract-title">PROVEN LEADERSHIP & TECHNICAL SCOPE</div>
+        <div class="abstract-card">
           <p class="abstract-text">{html.escape(get_text(summary, lang))}</p>
         </div>
       </div>
     </section>
 
-    <!-- Section 2: Top Featured Projects -->
+    <!-- Section 2: Top Featured Projects (Clean single-line header) -->
     <section class="section-block" id="top-projects">
       <div class="container">
-        <header class="latex-section-header">
-          <span class="latex-command">\\section{{{L['sec_top']}}}</span>
-          <h2 class="latex-section-title">
-            <span class="section-number">§ 2.</span>
+        <header class="section-header">
+          <h2 class="section-title">
+            <span class="tex-cmd">\\section</span>
+            <span class="section-num">02.</span>
             <span>{L['sec_top']}</span>
           </h2>
           <hr class="latex-hrule">
         </header>
 
-        <div class="top-projects-grid">
+        <div class="projects-grid">
           {"".join(top_projects_html)}
         </div>
       </div>
     </section>
 
-    <!-- Section 3: Professional Experience -->
+    <!-- Section 3: Professional Experience (Clean single-line header) -->
     <section class="section-block" id="experience">
       <div class="container">
-        <header class="latex-section-header">
-          <span class="latex-command">\\section{{{L['sec_exp']}}}</span>
-          <h2 class="latex-section-title">
-            <span class="section-number">§ 3.</span>
+        <header class="section-header">
+          <h2 class="section-title">
+            <span class="tex-cmd">\\section</span>
+            <span class="section-num">03.</span>
             <span>{L['sec_exp']}</span>
           </h2>
           <hr class="latex-hrule">
@@ -377,13 +346,13 @@ def generate_html(data, lang="en"):
       </div>
     </section>
 
-    <!-- Section 4: Skills Matrix -->
+    <!-- Section 4: Skills Matrix (Clean single-line header) -->
     <section class="section-block" id="skills">
       <div class="container">
-        <header class="latex-section-header">
-          <span class="latex-command">\\section{{{L['sec_skills']}}}</span>
-          <h2 class="latex-section-title">
-            <span class="section-number">§ 4.</span>
+        <header class="section-header">
+          <h2 class="section-title">
+            <span class="tex-cmd">\\section</span>
+            <span class="section-num">04.</span>
             <span>{L['sec_skills']}</span>
           </h2>
           <hr class="latex-hrule">
@@ -395,13 +364,13 @@ def generate_html(data, lang="en"):
       </div>
     </section>
 
-    <!-- Section 5: Education & Languages -->
+    <!-- Section 5: Education & Languages (Clean single-line header) -->
     <section class="section-block" id="education">
       <div class="container">
-        <header class="latex-section-header">
-          <span class="latex-command">\\section{{{L['sec_edu']}}}</span>
-          <h2 class="latex-section-title">
-            <span class="section-number">§ 5.</span>
+        <header class="section-header">
+          <h2 class="section-title">
+            <span class="tex-cmd">\\section</span>
+            <span class="section-num">05.</span>
             <span>{L['sec_edu']}</span>
           </h2>
           <hr class="latex-hrule">
@@ -409,11 +378,11 @@ def generate_html(data, lang="en"):
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
           <div>
-            <h3 style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--neon-pink); margin-bottom: 16px;">🎓 {L['nav_edu']}</h3>
+            <h3 style="font-family: var(--font-mono); font-size: 1.05rem; color: var(--neon-pink); margin-bottom: 14px;">🎓 {'Educación' if is_es else 'Education'}</h3>
             {"".join(edu_html)}
           </div>
           <div>
-            <h3 style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--neon-blue); margin-bottom: 16px;">🌐 {'Idiomas' if is_es else 'Languages'}</h3>
+            <h3 style="font-family: var(--font-mono); font-size: 1.05rem; color: var(--neon-blue); margin-bottom: 14px;">🌐 {'Idiomas' if is_es else 'Languages'}</h3>
             <div style="display: flex; flex-direction: column; gap: 12px;">
               {"".join(lang_html)}
             </div>
@@ -422,65 +391,71 @@ def generate_html(data, lang="en"):
       </div>
     </section>
 
-    <!-- Section 6: Interactive Live CV View (#cv) -->
+    <!-- Section 6: CV & CONTACT (Exact layout matching user screenshot) -->
     <section class="section-block" id="cv">
       <div class="container">
-        <header class="latex-section-header">
-          <span class="latex-command">\\section{{{L['sec_cv']}}}</span>
-          <h2 class="latex-section-title">
-            <span class="section-number">§ 6.</span>
+        <header class="section-header">
+          <h2 class="section-title">
+            <span class="tex-cmd">\\section</span>
+            <span class="section-num">06.</span>
             <span>{L['sec_cv']}</span>
           </h2>
           <hr class="latex-hrule">
         </header>
 
-        <div class="cv-preview-container">
-          <div class="cv-toolbar">
-            <div class="cv-toolbar-title">
-              <span class="pulse-dot"></span>
-              <span>{L['cv_viewer_title']}</span>
-            </div>
-            <div class="cv-actions-group">
-              <a href="{base_prefix}{pdf_filename}" class="btn-primary" download style="padding: 8px 16px; font-size: 0.85rem;">
-                📥 {L['btn_dl_pdf']}
+        <div class="cv-contact-container">
+          <!-- Left Column: Document Thumbnail -->
+          <a href="{base_prefix}{pdf_filename}" class="cv-preview-card" download title="{L['btn_dl_pdf']}">
+            <img src="{preview_img}" alt="{profile['name']} - CV Preview" class="cv-preview-img">
+          </a>
+
+          <!-- Right Column: Contact Pitch, Actions & Links -->
+          <div class="cv-contact-details">
+            <p class="cv-contact-pitch">{L['pitch']}</p>
+
+            <div class="cv-action-row">
+              <a href="{base_prefix}{pdf_filename}" class="btn-cv-download" download>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>{L['btn_dl_pdf']}</span>
               </a>
-              <button class="btn-secondary action-print-cv" style="padding: 8px 16px; font-size: 0.85rem;">
-                🖨️ {L['btn_print_pdf']}
+              <a href="mailto:{profile['email']}" class="btn-cv-email">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span>{L['btn_email']}</span>
+              </a>
+              <button class="btn-cv-print action-print-cv">
+                {L['btn_print_page']}
               </button>
-              <a href="{base_prefix}{tex_filename}" class="btn-outline-pink" download style="padding: 8px 16px; font-size: 0.85rem;">
-                📜 {L['btn_tex']}
-              </a>
+            </div>
+
+            <div class="cv-contact-list">
+              <div class="cv-contact-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <a href="mailto:{profile['email']}">{profile['email']}</a>
+              </div>
+              <div class="cv-contact-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>{html.escape(get_text(profile['location'], lang))}</span>
+              </div>
+              <div class="cv-contact-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span><span id="live-spain-time" class="live-time-indicator">--:--</span> {L['local_time']}</span>
+              </div>
+              <div class="cv-contact-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                <a href="{profile['links']['linkedin']}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              </div>
+              <div class="cv-contact-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                <a href="{profile['links']['github']}" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </div>
+
+            <div class="cv-meta-block">
+              <div><em>{L['auto_gen']}</em></div>
+              <div class="cv-meta-badge">{L['compiled_note']}</div>
+              <div>{L['data_label']} <a href="{base_prefix}cv.json">JSON</a> · <a href="{base_prefix}cv.txt">plain text</a> · <a href="{base_prefix}{tex_filename}">LaTeX (.tex)</a></div>
             </div>
           </div>
-
-          <!-- Typeset LaTeX Paper Simulation -->
-          <article class="latex-paper">
-            <header class="paper-header">
-              <div class="paper-name">{profile['name']}</div>
-              <div class="paper-role">{html.escape(get_text(profile['role'], lang))}</div>
-              <div class="paper-contact">
-                <span>📍 {html.escape(get_text(profile['location'], lang))}</span>
-                <span>✉ <a href="mailto:{profile['email']}">{profile['email']}</a></span>
-                <span>🔗 <a href="{profile['links']['linkedin']}">linkedin.com/in/angelsarrion</a></span>
-                <span>💻 <a href="{profile['links']['github']}">github.com/angelsarrion</a></span>
-              </div>
-            </header>
-
-            <section class="paper-section">
-              <h3 class="paper-section-title">{L['sec_abstract']}</h3>
-              <p>{html.escape(get_text(summary, lang))}</p>
-            </section>
-
-            <section class="paper-section">
-              <h3 class="paper-section-title">{L['sec_top']}</h3>
-              {"".join(paper_top_proj)}
-            </section>
-
-            <section class="paper-section">
-              <h3 class="paper-section-title">{L['sec_exp']}</h3>
-              {"".join(paper_exp)}
-            </section>
-          </article>
         </div>
       </div>
     </section>
@@ -490,14 +465,12 @@ def generate_html(data, lang="en"):
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand">
+        <div>
           <strong>{profile['name']}</strong> — {html.escape(get_text(profile['role'], lang))}
-          <br>
-          <span style="color: var(--text-muted); font-size: 0.85rem;">{L['footer_note']}</span>
         </div>
 
         <div class="footer-data-links">
-          <span>{L['cv_data_label']}</span>
+          <span>{L['data_label']}</span>
           <a href="{base_prefix}cv.json" class="footer-data-pill">JSON</a>
           <a href="{base_prefix}cv.txt" class="footer-data-pill">PLAIN TEXT</a>
           <a href="{base_prefix}{tex_filename}" class="footer-data-pill">LATEX (.TEX)</a>
@@ -506,7 +479,7 @@ def generate_html(data, lang="en"):
       </div>
 
       <div class="footer-copyright">
-        © {datetime.now().year} {profile['name']} · Built with LaTeX Architecture & Synthwave Design
+        © {datetime.now().year} {profile['name']} · Senior Business Analyst Lead & IT Specialist
       </div>
     </div>
   </footer>
@@ -527,21 +500,21 @@ def generate_plain_text(data, lang="en"):
     languages = data["languages"]
 
     lines = []
-    lines.append(f"{profile['name'].upper()} - {get_text(profile['role'], lang).upper()}")
+    lines.append(f"{profile['name'].upper()} — {get_text(profile['role'], lang).upper()}")
     lines.append("=" * 70)
     lines.append(f"Email:    {profile['email']}")
     lines.append(f"Location: {get_text(profile['location'], lang)}")
     lines.append(f"LinkedIn: {profile['links']['linkedin']}")
     lines.append(f"GitHub:   {profile['links']['github']}")
     lines.append("\n" + ("=" * 70))
-    lines.append("EXECUTIVE SUMMARY / EXTRACTO")
+    lines.append("01. EXECUTIVE SUMMARY / EXTRACTO")
     lines.append("=" * 70)
     lines.append(get_text(summary, lang))
     lines.append("\n" + ("=" * 70))
-    lines.append("TOP STRATEGIC INITIATIVES (FEATURED)")
+    lines.append("02. STRATEGIC INITIATIVES (FEATURED)")
     lines.append("=" * 70)
     for p in top_projects:
-        lines.append(f"\n* {get_text(p['title'], lang)} ({p['tag']}) | {p['period']} | {p['company']}")
+        lines.append(f"\n* {get_text(p['title'], lang)} | {p['period']} | {p['company']}")
         lines.append(f"  Role: {get_text(p['role'], lang)}")
         lines.append(f"  Overview: {get_text(p['overview'], lang)}")
         lines.append("  Key Impact:")
@@ -550,10 +523,10 @@ def generate_plain_text(data, lang="en"):
         lines.append(f"  Stack: {', '.join(p['stack'])}")
 
     lines.append("\n" + ("=" * 70))
-    lines.append("PROFESSIONAL EXPERIENCE")
+    lines.append("03. PROFESSIONAL CAREER HISTORY")
     lines.append("=" * 70)
     for e in experience:
-        lines.append(f"\n* {e['company']} | {get_text(e['start'], lang)} - {get_text(e['end'], lang)}")
+        lines.append(f"\n* {e['company']} | {get_text(e['start'], lang)} – {get_text(e['end'], lang)}")
         lines.append(f"  Position: {get_text(e['position'], lang)} ({get_text(e['location'], lang)})")
         for b in get_text(e['bullets'], lang):
             lines.append(f"    - {b}")
@@ -561,16 +534,16 @@ def generate_plain_text(data, lang="en"):
             lines.append(f"  Stack: {', '.join(e['stack'])}")
 
     lines.append("\n" + ("=" * 70))
-    lines.append("TECHNICAL MATRIX & SKILLS")
+    lines.append("04. TECHNICAL MATRIX & SKILLS")
     lines.append("=" * 70)
     for s in skills:
         lines.append(f"* {get_text(s['category'], lang)}: {', '.join(s['items'])}")
 
     lines.append("\n" + ("=" * 70))
-    lines.append("EDUCATION & LANGUAGES")
+    lines.append("05. EDUCATION & LANGUAGES")
     lines.append("=" * 70)
     for ed in education:
-        lines.append(f"* {ed['institution']}: {get_text(ed['degree'], lang)} ({ed['period']}) - {ed['location']}")
+        lines.append(f"* {ed['institution']}: {get_text(ed['degree'], lang)} ({ed['period']}) — {ed['location']}")
     for l in languages:
         lines.append(f"* {get_text(l['language'], lang)}: {get_text(l['proficiency'], lang)}")
 
@@ -610,15 +583,14 @@ def generate_latex(data, lang="en"):
     is_es = (lang == "es")
 
     sec_summary = "Perfil Ejecutivo" if is_es else "Executive Profile"
-    sec_top = "Iniciativas Estratégicas Destacadas (TOP 3)" if is_es else "Top Strategic Initiatives (Featured)"
-    sec_exp = "Trayectoria Profesional" if is_es else "Professional Experience"
+    sec_top = "Iniciativas Estratégicas Destacadas" if is_es else "Strategic Initiatives (Featured)"
+    sec_exp = "Trayectoria Profesional" if is_es else "Professional Career History"
     sec_skills = "Matriz de Competencias" if is_es else "Technical Competencies"
-    sec_edu = "Formación Académica e Idiomas" if is_es else "Education & Languages"
+    sec_edu = "Formación Académica e Idiomas" if is_es else "Academic Credentials & Languages"
 
     top_proj_tex = []
     for p in top_projects:
         title = escape_tex(get_text(p["title"], lang))
-        tag = escape_tex(p["tag"])
         period = escape_tex(p["period"])
         role = escape_tex(get_text(p["role"], lang))
         overview = escape_tex(get_text(p["overview"], lang))
@@ -627,7 +599,7 @@ def generate_latex(data, lang="en"):
         
         block = (
             "\\noindent\\textbf{\\large " + title + "} \\hfill {\\color{SynthBlue}\\textbf{" + period + "}} \\\\\n"
-            "{\\color{SynthPink}\\textbf{" + tag + " $\\cdot$ " + role + " $\\cdot$ " + p['company'] + "}} \\\\\n"
+            "{\\color{SynthPink}\\textbf{" + role + " $\\cdot$ " + p['company'] + "}} \\\\\n"
             "\\vspace{2pt}\n"
             + overview + "\n"
             "\\begin{itemize}[leftmargin=1.5em, itemsep=1.5pt, topsep=2pt]\n"
@@ -686,7 +658,7 @@ def generate_latex(data, lang="en"):
     sum_str = escape_tex(get_text(summary, lang))
 
     tex_doc = f"""% =========================================================================
-% Ángel Sarrión - Curriculum Vitae
+% Ángel Sarrión — Curriculum Vitae
 % Design: LaTeX Technical Precision + Synthwave Palette (Neon Pink & Cyan)
 % =========================================================================
 \\documentclass[10pt,a4paper]{{article}}
@@ -703,10 +675,9 @@ def generate_latex(data, lang="en"):
 
 % --- Synthwave Color Palette ---
 \\definecolor{{SynthPink}}{{HTML}}{{FF2A85}}
-\\definecolor{{SynthBlue}}{{HTML}}{{008CB4}} % High contrast print cyan-blue
+\\definecolor{{SynthBlue}}{{HTML}}{{008CB4}}
 \\definecolor{{DarkVoid}}{{HTML}}{{0A0B16}}
 \\definecolor{{SlateGray}}{{HTML}}{{475569}}
-\\definecolor{{RulePink}}{{HTML}}{{FF2A85}}
 
 % --- Hyperref Setup ---
 \\hypersetup{{
@@ -717,9 +688,9 @@ def generate_latex(data, lang="en"):
     pdfauthor={{{profile['name']}}}
 }}
 
-% --- Section Styling (LaTeX + Synthwave) ---
+% --- Section Styling ---
 \\titleformat{{\\section}}
-  {{\\large\\bfseries\\scshape\\color{{SynthPink}}}}
+  {{\\large\\bfseries\\color{{SynthPink}}}}
   {{}}
   {{0em}}
   {{}}[{{\\color{{SynthBlue}}\\titlerule[1.2pt]}}]
@@ -806,7 +777,6 @@ def main():
     with open(os.path.join(ROOT_DIR, "main-es.tex"), "w", encoding="utf-8") as f:
         f.write(generate_latex(data, "es"))
     
-    # Also copy main.tex / main-es.tex into docs/ so users can download directly from site
     with open(os.path.join(DOCS_DIR, "main.tex"), "w", encoding="utf-8") as f:
         f.write(generate_latex(data, "en"))
     with open(os.path.join(DOCS_DIR, "main-es.tex"), "w", encoding="utf-8") as f:

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
 tools/generate_pdf.py
-High-precision Vector PDF Generator using PyCairo for Ángel Sarrión's CV.
+High-precision Vector PDF and Preview Image Generator using PyCairo for Ángel Sarrión's CV.
 Produces:
   - docs/AngelSarrion-CV.pdf (English)
   - docs/AngelSarrion-CV-es.pdf (Spanish)
-Design: Clean LaTeX-inspired technical document with 80s Synthwave neon accents.
+  - docs/assets/cv-preview.png (English preview thumbnail)
+  - docs/assets/cv-preview-es.png (Spanish preview thumbnail)
 """
 
 import os
@@ -15,6 +16,7 @@ import cairo
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CV_JSON_PATH = os.path.join(ROOT_DIR, "content", "cv.json")
 DOCS_DIR = os.path.join(ROOT_DIR, "docs")
+ASSETS_DIR = os.path.join(DOCS_DIR, "assets")
 
 PAGE_WIDTH = 595.28   # A4 Width in points
 PAGE_HEIGHT = 841.89  # A4 Height in points
@@ -27,7 +29,6 @@ C_PINK = (0.88, 0.05, 0.48)      # Neon Pink / Magenta
 C_BLUE = (0.01, 0.48, 0.72)      # Deep Cyan / Synth Blue
 C_DARK = (0.08, 0.10, 0.16)      # Slate Dark Text
 C_MUTED = (0.35, 0.40, 0.48)     # Muted Gray
-C_LIGHT_BG = (0.96, 0.97, 0.99)  # Subtle Box BG
 
 def load_data():
     with open(CV_JSON_PATH, "r", encoding="utf-8") as f:
@@ -56,12 +57,25 @@ def wrap_text(ctx, text, max_width):
     return lines
 
 class PDFCanvas:
-    def __init__(self, filename, total_pages=2):
+    def __init__(self, filename, total_pages=2, surface_type="pdf"):
         self.filename = filename
         self.total_pages = total_pages
         self.current_page = 1
-        self.surface = cairo.PDFSurface(filename, PAGE_WIDTH, PAGE_HEIGHT)
+        self.surface_type = surface_type
+        if surface_type == "image":
+            # 2x resolution for thumbnail (width ~ 600px, height ~ 848px)
+            self.scale = 1.0
+            self.surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, int(PAGE_WIDTH), int(PAGE_HEIGHT))
+        else:
+            self.scale = 1.0
+            self.surface = cairo.PDFSurface(filename, PAGE_WIDTH, PAGE_HEIGHT)
+        
         self.ctx = cairo.Context(self.surface)
+        if surface_type == "image":
+            # Paint white background
+            self.ctx.set_source_rgb(1, 1, 1)
+            self.ctx.paint()
+            
         self.y = MARGIN_Y
 
     def next_page(self):
@@ -98,8 +112,8 @@ class PDFCanvas:
         github = "github.com/angelsarrion"
 
         # Name
-        ctx.select_font_face("Serif", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(20)
+        ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+        ctx.set_font_size(19)
         ctx.set_source_rgb(*C_DARK)
         ext = ctx.text_extents(name)
         ctx.move_to(PAGE_WIDTH / 2 - ext.width / 2, self.y + 16)
@@ -108,7 +122,7 @@ class PDFCanvas:
 
         # Role
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(10.5)
+        ctx.set_font_size(10)
         ctx.set_source_rgb(*C_BLUE)
         ext = ctx.text_extents(role)
         ctx.move_to(PAGE_WIDTH / 2 - ext.width / 2, self.y + 10)
@@ -125,7 +139,7 @@ class PDFCanvas:
         ctx.show_text(contact_line)
         self.y += 14
 
-        # Dual-tone rule line (Synthwave Magenta to Cyan)
+        # Dual-tone rule line
         ctx.save()
         ctx.set_line_width(1.5)
         pat = cairo.LinearGradient(MARGIN_X, self.y, PAGE_WIDTH - MARGIN_X, self.y)
@@ -160,7 +174,7 @@ class PDFCanvas:
     def draw_paragraph(self, text, font_size=8.5, line_spacing=11.5, color=C_DARK, italic=False):
         ctx = self.ctx
         slant = cairo.FONT_SLANT_ITALIC if italic else cairo.FONT_SLANT_NORMAL
-        ctx.select_font_face("Serif", slant, cairo.FONT_WEIGHT_NORMAL)
+        ctx.select_font_face("Sans", slant, cairo.FONT_WEIGHT_NORMAL)
         ctx.set_font_size(font_size)
         ctx.set_source_rgb(*color)
         lines = wrap_text(ctx, text, CONTENT_WIDTH)
@@ -189,29 +203,21 @@ class PDFCanvas:
             self.y += line_spacing
 
     def finish(self):
-        self.draw_footer()
-        self.surface.finish()
+        if self.surface_type == "image":
+            self.surface.write_to_png(self.filename)
+        else:
+            self.draw_footer()
+            self.surface.finish()
 
-def generate_pdf_for_lang(data, lang="en", outfile="output.pdf"):
-    canvas = PDFCanvas(outfile, total_pages=2)
+def render_page1(canvas, data, lang="en"):
     profile = data["profile"]
     summary = get_text(data["summary"], lang)
     top_projects = data["topProjects"]
-    experience = data["experience"]
-    skills = data["skills"]
-    education = data["education"]
-    languages = data["languages"]
-
     is_es = (lang == "es")
 
-    # Titles
-    t_summary = "Perfil Ejecutivo & Extracto" if is_es else "Executive Profile & Scope"
-    t_top = "Iniciativas Estratégicas Destacadas (TOP 3)" if is_es else "Top Strategic Initiatives (Featured)"
-    t_exp = "Trayectoria Profesional" if is_es else "Professional Career History"
-    t_skills = "Matriz de Competencias" if is_es else "Technical Taxonomy & Governance"
-    t_edu = "Formación Académica e Idiomas" if is_es else "Academic Credentials & Languages"
+    t_summary = "Perfil Ejecutivo & Alcance" if is_es else "Executive Profile & Scope"
+    t_top = "Iniciativas Estratégicas Destacadas" if is_es else "Strategic Initiatives (Featured)"
 
-    # --- PAGE 1 ---
     canvas.draw_header(profile, lang)
     
     # Executive Summary
@@ -224,7 +230,6 @@ def generate_pdf_for_lang(data, lang="en", outfile="output.pdf"):
     for p in top_projects:
         ctx = canvas.ctx
         p_title = get_text(p["title"], lang)
-        p_tag = p["tag"]
         p_period = p["period"]
         p_role = get_text(p["role"], lang)
         p_comp = p["company"]
@@ -232,14 +237,14 @@ def generate_pdf_for_lang(data, lang="en", outfile="output.pdf"):
         p_impact = get_text(p["impact"], lang)
         p_stack = ", ".join(p["stack"])
 
-        # Project Header Row
+        # Project Header Row (No "TOP #" tag)
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
         ctx.set_font_size(9.5)
         ctx.set_source_rgb(*C_DARK)
         ctx.move_to(MARGIN_X, canvas.y + 8)
-        ctx.show_text(f"{p_title} ({p_tag})")
+        ctx.show_text(p_title)
 
-        # Period & Company (right aligned)
+        # Period & Company
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
         ctx.set_font_size(8.5)
         ctx.set_source_rgb(*C_BLUE)
@@ -272,10 +277,17 @@ def generate_pdf_for_lang(data, lang="en", outfile="output.pdf"):
         ctx.show_text(f"Stack: {p_stack}")
         canvas.y += 12
 
-    # --- PAGE 2 ---
-    canvas.next_page()
+def render_page2(canvas, data, lang="en"):
+    experience = data["experience"]
+    skills = data["skills"]
+    education = data["education"]
+    languages = data["languages"]
+    is_es = (lang == "es")
 
-    # Experience
+    t_exp = "Trayectoria Profesional" if is_es else "Professional Career History"
+    t_skills = "Matriz de Competencias" if is_es else "Technical Taxonomy & Governance"
+    t_edu = "Formación Académica e Idiomas" if is_es else "Academic Credentials & Languages"
+
     canvas.draw_section_title(t_exp)
     for e in experience:
         ctx = canvas.ctx
@@ -384,15 +396,32 @@ def generate_pdf_for_lang(data, lang="en", outfile="output.pdf"):
     ctx.show_text(f"Languages: {lang_str}")
     canvas.y += 10
 
+def generate_pdf(data, lang="en", outfile="output.pdf"):
+    canvas = PDFCanvas(outfile, total_pages=2, surface_type="pdf")
+    render_page1(canvas, data, lang)
+    canvas.next_page()
+    render_page2(canvas, data, lang)
     canvas.finish()
-    print(f"Generated {outfile} successfully!")
+    print(f"Generated PDF: {outfile}")
+
+def generate_preview_image(data, lang="en", outfile="preview.png"):
+    canvas = PDFCanvas(outfile, total_pages=1, surface_type="image")
+    render_page1(canvas, data, lang)
+    canvas.finish()
+    print(f"Generated Preview Image: {outfile}")
 
 def main():
     data = load_data()
     out_en = os.path.join(DOCS_DIR, "AngelSarrion-CV.pdf")
     out_es = os.path.join(DOCS_DIR, "AngelSarrion-CV-es.pdf")
-    generate_pdf_for_lang(data, "en", out_en)
-    generate_pdf_for_lang(data, "es", out_es)
+    generate_pdf(data, "en", out_en)
+    generate_pdf(data, "es", out_es)
+
+    # Generate Page 1 PNG Previews
+    prev_en = os.path.join(ASSETS_DIR, "cv-preview.png")
+    prev_es = os.path.join(ASSETS_DIR, "cv-preview-es.png")
+    generate_preview_image(data, "en", prev_en)
+    generate_preview_image(data, "es", prev_es)
 
 if __name__ == "__main__":
     main()

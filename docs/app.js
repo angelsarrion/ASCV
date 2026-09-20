@@ -1,6 +1,6 @@
 /* ==========================================================================
-   ÁNGEL SARRIÓN - PERSONAL SPACE
-   Interactive Client Script: Theme, Localization, Actions & Print
+   ÁNGEL SARRIÓN — PERSONAL SPACE
+   Client Script: Live Madrid Clock, Theme & Language Management, Print
    ========================================================================== */
 
 (function () {
@@ -19,13 +19,13 @@
     if (theme === 'paper') {
       document.documentElement.setAttribute('data-theme', 'paper');
       if (themeToggleBtn) {
-        themeToggleBtn.innerHTML = '⚡ Synthwave Theme';
+        themeToggleBtn.innerHTML = '⚡ Synthwave';
         themeToggleBtn.setAttribute('aria-label', 'Switch to Synthwave Dark theme');
       }
     } else {
       document.documentElement.removeAttribute('data-theme');
       if (themeToggleBtn) {
-        themeToggleBtn.innerHTML = '📄 LaTeX Paper Theme';
+        themeToggleBtn.innerHTML = '📄 LaTeX Paper';
         themeToggleBtn.setAttribute('aria-label', 'Switch to LaTeX Paper theme');
       }
     }
@@ -49,7 +49,6 @@
       mobileToggle.setAttribute('aria-expanded', isOpen);
     });
 
-    // Close mobile menu when clicking nav link
     navMenu.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
@@ -82,18 +81,39 @@
 
   window.addEventListener('scroll', updateActiveNav, { passive: true });
 
-  // --- Print / Generate PDF Button ---
-  const printBtns = document.querySelectorAll('.action-print-cv');
-  printBtns.forEach(btn => {
+  // --- Print Trigger ---
+  document.querySelectorAll('.action-print-cv').forEach(btn => {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
       window.print();
     });
   });
 
+  // --- Live Dynamic Clock in Spain (Europe/Madrid) ---
+  function updateLiveClock() {
+    const timeEl = document.getElementById('live-spain-time');
+    if (!timeEl) return;
+    try {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-GB', {
+        timeZone: 'Europe/Madrid',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+      timeEl.textContent = timeStr;
+    } catch (e) {
+      // Fallback
+      const now = new Date();
+      timeEl.textContent = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+    }
+  }
+
   // --- Initialize ---
   document.addEventListener('DOMContentLoaded', function () {
     initTheme();
     updateActiveNav();
+    updateLiveClock();
+    setInterval(updateLiveClock, 10000);
   });
 })();
