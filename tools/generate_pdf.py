@@ -533,20 +533,26 @@ def render_page2(canvas, data, lang="en"):
         cat = get_text(s["category"], lang)
         items = ", ".join(s["items"])
         ctx = canvas.ctx
+
+        # Bold category label on its own line
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
         ctx.set_font_size(8.5)
         ctx.set_source_rgb(*C_DARK)
-        ctx.move_to(MARGIN_X, canvas.y + 7)
-        cat_str = f"• {cat}: "
-        ctx.show_text(cat_str)
-        ext = ctx.text_extents(cat_str)
+        ctx.move_to(MARGIN_X, canvas.y + 8)
+        ctx.show_text(f"• {cat}")
+        canvas.y += 12
 
+        # Items wrapped across multiple lines, indented
+        indent = 12
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(8.5)
+        ctx.set_font_size(8.3)
         ctx.set_source_rgb(*C_MUTED)
-        ctx.move_to(MARGIN_X + ext.width, canvas.y + 7)
-        ctx.show_text(items)
-        canvas.y += 13
+        item_lines = wrap_text(ctx, items, CONTENT_WIDTH - indent)
+        for il in item_lines:
+            ctx.move_to(MARGIN_X + indent, canvas.y + 8)
+            ctx.show_text(il)
+            canvas.y += 11
+        canvas.y += 4
 
     # Education & Languages
     canvas.draw_section_title(t_edu)
