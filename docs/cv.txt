@@ -48,7 +48,15 @@ Technology leader with over 18 years architecting and delivering mission-critica
 03. PROFESSIONAL CAREER HISTORY
 ======================================================================
 
-* Santander Digital Services | Jun 2025 – Present
+* Santander Digital Services | Jan 2026 – Present
+  Position: Coordination Lead – Team Lead BAU (Risk Decision Services) (Boadilla del Monte, Madrid / Albacete, Spain)
+    - Lead and coordinate a multidisciplinary team of 20+ professionals, overseeing end-to-end SDLC execution to ensure operational continuity and system support across all BAU workstreams.
+    - Accountable for platform stability and critical incident response across a complex ecosystem of 250+ software components.
+    - Act as primary interlocutor with Credit Risk business stakeholders, capturing technical requirements, translating them into functional specifications, and designing scalable software solutions.
+    - Actively manage release planning and deployment execution across PaaS environments, participating hands-on in the team's DevOps operations.
+  Stack: Team Leadership, Incident Management, Stakeholder Management, DevOps, PaaS, SDLC, Risk Decision Services, Release Governance
+
+* Santander Digital Services | Jun 2025 – Dec 2025
   Position: Senior Business Analyst Lead (Boadilla del Monte, Madrid / Albacete, Spain)
     - Define and refine Jira user stories with rigorous acceptance criteria, aligning engineering delivery directly with business goals and compliance mandates.
     - Coordinate cross-squad developer activity, resolving technical queries and maintaining high delivery cadence across the full lifecycle.

@@ -183,7 +183,6 @@ def generate_html(data, lang="en"):
           <a href="../index.html" class="lang-btn" title="Switch to English">EN</a>
           <span class="lang-btn active">ES</span>
         </div>
-        <a href="../index.html" class="btn-control lang-toggle-btn" title="Switch to English">{lang_switch_flag}</a>
         """
     else:
         lang_pill = f"""
@@ -191,7 +190,6 @@ def generate_html(data, lang="en"):
           <span class="lang-btn active">EN</span>
           <a href="es/index.html" class="lang-btn" title="Cambiar a Español">ES</a>
         </div>
-        <a href="es/index.html" class="btn-control lang-toggle-btn" title="Cambiar a Español">{lang_switch_flag}</a>
         """
 
     html_content = f"""<!DOCTYPE html>

@@ -180,6 +180,49 @@
     {
       "company": "Santander Digital Services",
       "position": {
+        "en": "Coordination Lead – Team Lead BAU (Risk Decision Services)",
+        "es": "Responsable de Coordinación – Team Lead BAU (Risk Decision Services)"
+      },
+      "start": {
+        "en": "Jan 2026",
+        "es": "Ene 2026"
+      },
+      "end": {
+        "en": "Present",
+        "es": "Actualidad"
+      },
+      "location": {
+        "en": "Boadilla del Monte, Madrid / Albacete, Spain",
+        "es": "Boadilla del Monte, Madrid / Albacete, España"
+      },
+      "bullets": {
+        "en": [
+          "Lead and coordinate a multidisciplinary team of 20+ professionals, overseeing end-to-end SDLC execution to ensure operational continuity and system support across all BAU workstreams.",
+          "Accountable for platform stability and critical incident response across a complex ecosystem of 250+ software components.",
+          "Act as primary interlocutor with Credit Risk business stakeholders, capturing technical requirements, translating them into functional specifications, and designing scalable software solutions.",
+          "Actively manage release planning and deployment execution across PaaS environments, participating hands-on in the team's DevOps operations."
+        ],
+        "es": [
+          "Dirección y coordinación de un equipo multidisciplinar de más de 20 profesionales, supervisando la ejecución integral del SDLC para garantizar la continuidad operativa y el soporte del sistema.",
+          "Responsable de la estabilidad de la plataforma y respuesta ante incidencias críticas en un ecosistema complejo de más de 250 componentes de software.",
+          "Interlocución directa con el área de negocio de Credit Risk para la captación de necesidades técnicas, traducción funcional y diseño e implementación de soluciones de software escalables.",
+          "Gestión activa de la planificación y entrega de releases en entornos PaaS, participando de forma directa en las tareas DevOps del equipo."
+        ]
+      },
+      "stack": [
+        "Team Leadership",
+        "Incident Management",
+        "Stakeholder Management",
+        "DevOps",
+        "PaaS",
+        "SDLC",
+        "Risk Decision Services",
+        "Release Governance"
+      ]
+    },
+    {
+      "company": "Santander Digital Services",
+      "position": {
         "en": "Senior Business Analyst Lead",
         "es": "Senior Business Analyst Lead"
       },
@@ -188,8 +231,8 @@
         "es": "Jun 2025"
       },
       "end": {
-        "en": "Present",
-        "es": "Actualidad"
+        "en": "Dec 2025",
+        "es": "Dic 2025"
       },
       "location": {
         "en": "Boadilla del Monte, Madrid / Albacete, Spain",

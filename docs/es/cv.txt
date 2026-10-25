@@ -48,7 +48,15 @@ Líder tecnológico con más de 18 años diseñando y entregando soluciones de T
 03. PROFESSIONAL CAREER HISTORY
 ======================================================================
 
-* Santander Digital Services | Jun 2025 – Actualidad
+* Santander Digital Services | Ene 2026 – Actualidad
+  Position: Responsable de Coordinación – Team Lead BAU (Risk Decision Services) (Boadilla del Monte, Madrid / Albacete, España)
+    - Dirección y coordinación de un equipo multidisciplinar de más de 20 profesionales, supervisando la ejecución integral del SDLC para garantizar la continuidad operativa y el soporte del sistema.
+    - Responsable de la estabilidad de la plataforma y respuesta ante incidencias críticas en un ecosistema complejo de más de 250 componentes de software.
+    - Interlocución directa con el área de negocio de Credit Risk para la captación de necesidades técnicas, traducción funcional y diseño e implementación de soluciones de software escalables.
+    - Gestión activa de la planificación y entrega de releases en entornos PaaS, participando de forma directa en las tareas DevOps del equipo.
+  Stack: Team Leadership, Incident Management, Stakeholder Management, DevOps, PaaS, SDLC, Risk Decision Services, Release Governance
+
+* Santander Digital Services | Jun 2025 – Dic 2025
   Position: Senior Business Analyst Lead (Boadilla del Monte, Madrid / Albacete, España)
     - Define y refina historias de usuario en Jira con criterios de aceptación rigurosos, alineando las entregas de desarrollo con objetivos de negocio y cumplimiento.
     - Coordina la actividad técnica de múltiples squads, resolviendo dudas de diseño y manteniendo una alta cadencia de entrega en todo el ciclo de vida.

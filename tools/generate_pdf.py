@@ -339,9 +339,9 @@ class PDFCanvas:
 
     def draw_section_title(self, title):
         ctx = self.ctx
-        self.y += 8
+        self.y += 6
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(10.5)
+        ctx.set_font_size(10.0)
         ctx.set_source_rgb(*C_NAVY)
         ctx.move_to(MARGIN_X, self.y)
         ctx.show_text(title.upper())
@@ -354,7 +354,7 @@ class PDFCanvas:
         ctx.line_to(PAGE_WIDTH - MARGIN_X, self.y + 4)
         ctx.stroke()
         ctx.restore()
-        self.y += 16
+        self.y += 13
 
     def draw_paragraph(self, text, font_size=9.0, line_spacing=13.5, color=C_DARK, italic=False):
         ctx = self.ctx
@@ -488,44 +488,34 @@ def render_page2(canvas, data, lang="en"):
         dates = f"{get_text(e['start'], lang)} – {get_text(e['end'], lang)}"
         loc = get_text(e["location"], lang)
         bullets = get_text(e["bullets"], lang)
-        stack = ", ".join(e.get("stack", []))
 
-        # Company Header
+        # Company Header + Dates
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(9.8)
+        ctx.set_font_size(9.2)
         ctx.set_source_rgb(*C_DARK)
-        ctx.move_to(MARGIN_X, canvas.y + 8)
+        ctx.move_to(MARGIN_X, canvas.y + 7)
         ctx.show_text(comp)
 
-        ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(8.8)
+        ctx.set_font_size(8.2)
         ctx.set_source_rgb(*C_NAVY)
         ext = ctx.text_extents(dates)
-        ctx.move_to(PAGE_WIDTH - MARGIN_X - ext.width, canvas.y + 8)
+        ctx.move_to(PAGE_WIDTH - MARGIN_X - ext.width, canvas.y + 7)
         ctx.show_text(dates)
-        canvas.y += 13
+        canvas.y += 11
 
         # Position & Location
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(9.0)
+        ctx.set_font_size(8.2)
         ctx.set_source_rgb(*C_NAVY)
-        ctx.move_to(MARGIN_X, canvas.y + 6)
+        ctx.move_to(MARGIN_X, canvas.y + 5)
         ctx.show_text(f"{pos} · {loc}")
-        canvas.y += 11
+        canvas.y += 10
 
-        # Bullets
-        bullet_count = 3 if "Santander" in comp else 2
-        for b in bullets[:bullet_count]:
-            canvas.draw_bullet(b, font_size=8.5, line_spacing=12.2)
+        # Bullets (2 per entry to keep layout compact)
+        for b in bullets[:2]:
+            canvas.draw_bullet(b, font_size=8.0, line_spacing=11.0)
 
-        if stack:
-            ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-            ctx.set_font_size(8.0)
-            ctx.set_source_rgb(*C_MUTED)
-            ctx.move_to(MARGIN_X + 14, canvas.y + 5)
-            ctx.show_text(f"Stack: {stack}")
-            canvas.y += 10
-        canvas.y += 8
+        canvas.y += 4
 
     # Skills Matrix
     canvas.draw_section_title(t_skills)
@@ -536,23 +526,23 @@ def render_page2(canvas, data, lang="en"):
 
         # Bold category label on its own line
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(8.5)
+        ctx.set_font_size(8.0)
         ctx.set_source_rgb(*C_DARK)
-        ctx.move_to(MARGIN_X, canvas.y + 8)
+        ctx.move_to(MARGIN_X, canvas.y + 7)
         ctx.show_text(f"• {cat}")
-        canvas.y += 12
+        canvas.y += 10
 
         # Items wrapped across multiple lines, indented
         indent = 12
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(8.3)
+        ctx.set_font_size(7.8)
         ctx.set_source_rgb(*C_MUTED)
         item_lines = wrap_text(ctx, items, CONTENT_WIDTH - indent)
         for il in item_lines:
-            ctx.move_to(MARGIN_X + indent, canvas.y + 8)
+            ctx.move_to(MARGIN_X + indent, canvas.y + 7)
             ctx.show_text(il)
-            canvas.y += 11
-        canvas.y += 4
+            canvas.y += 10
+        canvas.y += 2
 
     # Education & Languages
     canvas.draw_section_title(t_edu)
@@ -565,24 +555,24 @@ def render_page2(canvas, data, lang="en"):
         
         ctx = canvas.ctx
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
-        ctx.set_font_size(9.0)
+        ctx.set_font_size(8.5)
         ctx.set_source_rgb(*C_DARK)
-        ctx.move_to(MARGIN_X, canvas.y + 7)
+        ctx.move_to(MARGIN_X, canvas.y + 6)
         ctx.show_text(f"{inst} — {deg}")
         
-        ctx.set_font_size(8.5)
+        ctx.set_font_size(8.0)
         ctx.set_source_rgb(*C_NAVY)
         ext = ctx.text_extents(period)
-        ctx.move_to(PAGE_WIDTH - MARGIN_X - ext.width, canvas.y + 7)
+        ctx.move_to(PAGE_WIDTH - MARGIN_X - ext.width, canvas.y + 6)
         ctx.show_text(period)
-        canvas.y += 12
+        canvas.y += 10
 
         ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(8.5)
+        ctx.set_font_size(8.0)
         ctx.set_source_rgb(*C_MUTED)
-        ctx.move_to(MARGIN_X, canvas.y + 6)
+        ctx.move_to(MARGIN_X, canvas.y + 5)
         ctx.show_text(f"{field} · {loc}")
-        canvas.y += 14
+        canvas.y += 12
 
     # Languages
     lang_str = " | ".join([f"{get_text(l['language'], lang)}: {get_text(l['proficiency'], lang)}" for l in languages])
